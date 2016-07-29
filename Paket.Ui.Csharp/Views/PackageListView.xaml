@@ -4,7 +4,43 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Paket.Ui.Csharp"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:paket="clr-namespace:Paket;assembly=Paket.Core"
              mc:Ignorable="d">
-    <ListBox ItemsSource="{Binding Packages, RelativeSource={RelativeSource AncestorType={x:Type local:PackageListView}}}" 
-             SelectedItem="{Binding SelectedPackage, RelativeSource={RelativeSource AncestorType={x:Type local:PackageListView}}}" />
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type paket:Requirements+PackageRequirement}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Image Width="32"
+                       Height="32"
+                       Margin="6"
+                       Source="pack://application:,,,/Paket.Ui.Csharp;component/Images/NuGetIcon.png" />
+                <Grid Grid.Column="1" VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontWeight="Bold" Text="{Binding Name}" />
+                            <TextBlock FontWeight="Bold" Text="by CREATOR_PLACEHOLDER" />
+
+                        </StackPanel>
+
+                        <TextBlock Grid.Column="1" Text="{Binding VersionRequirement}" />
+                    </Grid>
+
+                    <TextBlock Grid.Row="1" Text="PACKAGE_INFO_PLACEHOLDER" />
+                </Grid>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <ListBox ItemsSource="{Binding Packages, RelativeSource={RelativeSource AncestorType={x:Type local:PackageListView}}}" SelectedItem="{Binding SelectedPackage, RelativeSource={RelativeSource AncestorType={x:Type local:PackageListView}}}" />
 </UserControl>

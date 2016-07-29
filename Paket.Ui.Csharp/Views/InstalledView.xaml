@@ -6,7 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"
              d:DesignWidth="300"
-             mc:Ignorable="d" d:DataContext="{d:DesignInstance local:InstalledViewModel}">
+             mc:Ignorable="d" d:DataContext="{x:Static local:InstalledViewModel.Default}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />

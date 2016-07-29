@@ -8,30 +8,30 @@
     {
         public static readonly DependencyProperty PackagesProperty = DependencyProperty.Register(
             nameof(Packages),
-            typeof(IEnumerable<PackageInfo>),
+            typeof(IEnumerable<object>),
             typeof(PackageListView),
-            new PropertyMetadata(default(IEnumerable<PackageInfo>)));
+            new PropertyMetadata(default(IEnumerable<object>)));
 
         public static readonly DependencyProperty SelectedPackageProperty = DependencyProperty.Register(
             nameof(SelectedPackage),
-            typeof(PackageInfo),
+            typeof(object),
             typeof(PackageListView),
-            new PropertyMetadata(default(PackageInfo)));
+            new PropertyMetadata(default(object)));
 
         public PackageListView()
         {
             InitializeComponent();
         }
 
-        public IEnumerable<PackageInfo> Packages
+        public IEnumerable<object> Packages
         {
-            get { return (IEnumerable<PackageInfo>)this.GetValue(PackagesProperty); }
+            get { return (IEnumerable<object>)this.GetValue(PackagesProperty); }
             set { this.SetValue(PackagesProperty, value); }
         }
 
-        public PackageInfo SelectedPackage
+        public object SelectedPackage
         {
-            get { return (PackageInfo)this.GetValue(SelectedPackageProperty); }
+            get { return (object)this.GetValue(SelectedPackageProperty); }
             set { this.SetValue(SelectedPackageProperty, value); }
         }
     }

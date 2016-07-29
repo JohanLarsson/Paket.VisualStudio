@@ -10,7 +10,9 @@ namespace Paket.Ui.Csharp
 
     public class InstalledViewModel : INotifyPropertyChanged
     {
-        private PackageInfo selectedPackage;
+        public static readonly InstalledViewModel Default = new InstalledViewModel(RootDirectory.Current);
+
+        private Requirements.PackageRequirement selectedPackage;
         private DirectoryInfo rootDirectory;
 
         public InstalledViewModel(DirectoryInfo rootDirectory)
@@ -18,15 +20,15 @@ namespace Paket.Ui.Csharp
             this.rootDirectory = rootDirectory;
             var dependencies = Paket.Dependencies.Locate(rootDirectory.FullName);
             var dependenciesFile = dependencies.GetDependenciesFile();
-            Packages = dependenciesFile.Lines.Select(x => new PackageInfo(x))
+            Packages = dependenciesFile.Groups.SelectMany(g => g.Value.Packages)
                                        .ToArray();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public IReadOnlyCollection<PackageInfo> Packages { get; }
+        public IReadOnlyCollection<Requirements.PackageRequirement> Packages { get; }
 
-        public PackageInfo SelectedPackage
+        public Requirements.PackageRequirement SelectedPackage
         {
             get
             {

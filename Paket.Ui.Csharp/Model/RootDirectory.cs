@@ -4,8 +4,8 @@
 
     public static class RootDirectory
     {
-        public static DirectoryInfo Current { get; } = GetSelfDirectory();
-
+        // Using global mutable state here, why not?
+        public static DirectoryInfo Current { get; set; } = GetSelfDirectory();
 
         private static DirectoryInfo GetSelfDirectory()
         {
