@@ -14,6 +14,8 @@ nuget VSSDK.Shell.12 copy_local: false
 nuget VSSDK.Shell.Interop.12 copy_local: false
 nuget reactiveui
 nuget reactiveui-events
+nuget JetBrains.Annotations
+
 
 group Build
 source http://nuget.org/api/v2

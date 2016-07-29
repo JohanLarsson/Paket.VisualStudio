@@ -3,6 +3,7 @@ NUGET
   remote: http://www.nuget.org/api/v2
     Chessie (0.6)
     FSharp.Core (4.0.0.1)
+    JetBrains.Annotations (10.1.5)
     MahApps.Metro (1.2.4)
     Mono.Cecil (0.9.6.3)
     Newtonsoft.Json (9.0.1)
@@ -199,4 +200,4 @@ NUGET
 GITHUB
   remote: fsharp/FAKE
     modules/Octokit/Octokit.fsx (835b545ca84995f27e1e07a61616ac0edb3c4790)
-      Octokit (>= 0.20)
+      Octokit
