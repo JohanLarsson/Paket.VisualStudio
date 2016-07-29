@@ -20,7 +20,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                 <TextBox Text="{Binding SearchText}" />
                 <Button Command="{Binding RefreshCommand}" Content="Refresh" />
                 <CheckBox Content="Include prerelease" IsChecked="{Binding IsIncludingPreRelease}" />
@@ -50,7 +50,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <ListBox ItemsSource="{Binding FeedPackages}" />
+            <local:PackageListView Packages="{Binding FeedPackages}" SelectedPackage="{Binding SelectedPackage}" />
 
             <GridSplitter Grid.Column="1" />
 

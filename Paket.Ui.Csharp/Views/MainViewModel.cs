@@ -9,7 +9,15 @@
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public BrowseViewModel BrowseViewModel { get; }
+        public MainViewModel()
+        {
+            Browse = new BrowseViewModel(RootDirectory.Current);
+            Installed = new InstalledViewModel(RootDirectory.Current);
+        }
+
+        public BrowseViewModel Browse { get; }
+
+        public InstalledViewModel Installed { get; }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

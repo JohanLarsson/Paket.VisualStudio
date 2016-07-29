@@ -16,7 +16,6 @@ nuget reactiveui
 nuget reactiveui-events
 nuget JetBrains.Annotations
 
-
 group Build
 source http://nuget.org/api/v2
 

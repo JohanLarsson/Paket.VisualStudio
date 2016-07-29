@@ -2,6 +2,7 @@
 {
     using System.Collections.ObjectModel;
     using System.ComponentModel;
+    using System.IO;
     using System.Runtime.CompilerServices;
     using System.Windows.Input;
 
@@ -14,6 +15,14 @@
         private bool isIncludingPreRelease;
 
         private string selectedPackageSource;
+
+        private PackageInfo selectedPackage;
+        private DirectoryInfo rootDirectory;
+
+        public BrowseViewModel(DirectoryInfo rootDirectory)
+        {
+            this.rootDirectory = rootDirectory;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -57,6 +66,22 @@
             {
                 if (value == selectedPackageSource) return;
                 selectedPackageSource = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<PackageInfo> FeedPackages { get; }
+
+        public PackageInfo SelectedPackage
+        {
+            get
+            {
+                return selectedPackage;
+            }
+            set
+            {
+                if (Equals(value, selectedPackage)) return;
+                selectedPackage = value;
                 OnPropertyChanged();
             }
         }

@@ -8,18 +8,5 @@
         Width="525"
         Height="350"
         mc:Ignorable="d">
-    <Window.DataContext>
-        <local:MainViewModel></local:MainViewModel>
-    </Window.DataContext>
-    <TabControl>
-        <TabItem Header="Browse">
-            <local:BrowseView DataContext="{Binding BrowseViewModel}"/>
-        </TabItem>
-
-        <TabItem Header="Installed" />
-
-        <TabItem Header="Updates" />
-
-        <TabItem Header="Tools" />
-    </TabControl>
+    <local:MainView />
 </Window>

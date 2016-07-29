@@ -6,7 +6,6 @@
     {
         public MainWindow()
         {
-            this.InitializeComponent();
         }
     }
 }
