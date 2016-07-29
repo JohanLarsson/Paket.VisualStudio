@@ -41,5 +41,6 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <ListBox ItemsSource="{Binding Packages, RelativeSource={RelativeSource AncestorType={x:Type local:PackageListView}}}" SelectedItem="{Binding SelectedPackage, RelativeSource={RelativeSource AncestorType={x:Type local:PackageListView}}}" />
+    <ListBox ItemsSource="{Binding Packages, RelativeSource={RelativeSource AncestorType={x:Type local:PackageListView}}}" 
+             SelectedItem="{Binding SelectedPackage, RelativeSource={RelativeSource AncestorType={x:Type local:PackageListView}}}" />
 </UserControl>

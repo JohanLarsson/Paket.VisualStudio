@@ -13,11 +13,9 @@ namespace Paket.Ui.Csharp
         public static readonly InstalledViewModel Default = new InstalledViewModel(RootDirectory.Current);
 
         private Requirements.PackageRequirement selectedPackage;
-        private DirectoryInfo rootDirectory;
 
         public InstalledViewModel(DirectoryInfo rootDirectory)
         {
-            this.rootDirectory = rootDirectory;
             var dependencies = Paket.Dependencies.Locate(rootDirectory.FullName);
             var dependenciesFile = dependencies.GetDependenciesFile();
             Packages = dependenciesFile.Groups.SelectMany(g => g.Value.Packages)

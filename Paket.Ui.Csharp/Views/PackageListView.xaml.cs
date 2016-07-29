@@ -10,7 +10,7 @@
             nameof(Packages),
             typeof(IEnumerable<object>),
             typeof(PackageListView),
-            new PropertyMetadata(default(IEnumerable<object>)));
+            new PropertyMetadata(CreateDefaultPackages()));
 
         public static readonly DependencyProperty SelectedPackageProperty = DependencyProperty.Register(
             nameof(SelectedPackage),
@@ -33,6 +33,11 @@
         {
             get { return (object)this.GetValue(SelectedPackageProperty); }
             set { this.SetValue(SelectedPackageProperty, value); }
+        }
+
+        private static object CreateDefaultPackages()
+        {
+            return Is.InDesignMode ? InstalledViewModel.Default.Packages : null;
         }
     }
 }
