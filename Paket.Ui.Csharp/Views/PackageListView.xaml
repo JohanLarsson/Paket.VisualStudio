@@ -13,9 +13,9 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Image Width="32"
-                       Height="32"
-                       Margin="6"
+                <Image Width="24"
+                       Height="24"
+                       Margin="2"
                        Source="pack://application:,,,/Paket.Ui.Csharp;component/Images/NuGetIcon.png" />
                 <Grid Grid.Column="1" VerticalAlignment="Top">
                     <Grid.RowDefinitions>
@@ -29,11 +29,10 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontWeight="Bold" Text="{Binding Name}" />
-                            <TextBlock FontWeight="Bold" Text="by CREATOR_PLACEHOLDER" />
-
+                            <TextBlock Margin="2,0,0,0" Text="by CREATOR_PLACEHOLDER" />
                         </StackPanel>
 
-                        <TextBlock Grid.Column="1" Text="{Binding VersionRequirement}" />
+                        <TextBlock Grid.Column="1" Text="VERSION_PLACEHOLDER" />
                     </Grid>
 
                     <TextBlock Grid.Row="1" Text="PACKAGE_INFO_PLACEHOLDER" />
