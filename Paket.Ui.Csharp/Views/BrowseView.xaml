@@ -50,9 +50,21 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <ListBox ItemTemplate="{StaticResource PackageRowTemplate}"
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="{StaticResource GridSplitterGridLength}" />
+                    <RowDefinition Height="150"/>
+                </Grid.RowDefinitions>
+                <ListBox ItemTemplate="{StaticResource PackageRowTemplate}"
                      ItemsSource="{Binding Packages}"
                      SelectedItem="{Binding Path=(local:State.SelectedPackage)}" />
+
+                <GridSplitter Grid.Row="1" />
+
+                <local:PackageInfoView Grid.Row="2" />
+            </Grid>
+
 
             <GridSplitter Grid.Column="1" />
 
