@@ -6,7 +6,7 @@
     {
         public InstalledView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

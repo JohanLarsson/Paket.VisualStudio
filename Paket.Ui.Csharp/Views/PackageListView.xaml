@@ -4,10 +4,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Paket.Ui.Csharp"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:paket="clr-namespace:Paket;assembly=Paket.Core"
              mc:Ignorable="d">
     <UserControl.Resources>
-        <DataTemplate DataType="{x:Type paket:Requirements+PackageRequirement}">
+        <DataTemplate DataType="{x:Type local:DependencyInfo}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -28,7 +27,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock FontWeight="Bold" Text="{Binding Name}" />
+                            <TextBlock FontWeight="Bold" Text="{Binding Id}" />
                             <TextBlock Margin="2,0,0,0" Text="by CREATOR_PLACEHOLDER" />
                         </StackPanel>
 

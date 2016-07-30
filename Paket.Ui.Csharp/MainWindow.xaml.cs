@@ -7,7 +7,7 @@
     {
         public MainWindow()
         {
-            RootDirectory.Current = new DirectoryInfo(GetType().Assembly.Location);
+            State.RootDirectory = new DirectoryInfo(this.GetType().Assembly.Location);
         }
     }
 }

@@ -72,13 +72,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\Is.cs" />
-    <Compile Include="Model\RootDirectory.cs" />
+    <Compile Include="Model\State.cs" />
     <Compile Include="Views\BrowseView.xaml.cs">
       <DependentUpon>BrowseView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BrowseViewModel.cs">
       <DependentUpon>BrowseView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\GroupInfo.cs" />
     <Compile Include="Views\InstalledView.xaml.cs">
       <DependentUpon>InstalledView.xaml</DependentUpon>
     </Compile>
@@ -101,7 +102,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\PackageInfo.cs" />
+    <Compile Include="Model\DependencyInfo.cs" />
     <Compile Include="Views\PackageListView.xaml.cs">
       <DependentUpon>PackageListView.xaml</DependentUpon>
     </Compile>

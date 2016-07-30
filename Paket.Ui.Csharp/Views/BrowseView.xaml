@@ -50,7 +50,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <local:PackageListView Packages="{Binding FeedPackages}" SelectedPackage="{Binding SelectedPackage}" />
+            <local:PackageListView Packages="{Binding FeedPackages}" SelectedPackage="{Binding SelectedDependency}" />
 
             <GridSplitter Grid.Column="1" />
 

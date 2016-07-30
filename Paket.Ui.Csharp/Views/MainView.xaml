@@ -39,6 +39,9 @@
 
         <TabItem Header="Tools" >
             <StackPanel>
+                <TextBlock Text="Update bootstrapper button?"/>
+                <TextBlock Text="Update paket button?"/>
+                <TextBlock Text="Update targets button?"/>
                 <TextBlock Text="Init button?"/>
                 <TextBlock Text="Simplify button?"/>
             </StackPanel>

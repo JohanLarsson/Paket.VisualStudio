@@ -6,7 +6,7 @@
     {
         public BrowseView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

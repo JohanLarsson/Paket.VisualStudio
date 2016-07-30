@@ -19,6 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{01EF
 		Nuget.fsx = Nuget.fsx
 	EndProjectSection
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Paket.VisualStudio.Core", "Paket.VisualStudio.Core\Paket.VisualStudio.Core.fsproj", "{585D61F9-5B69-4469-8249-1D6E6BB39FE6}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Paket.VisualStudio.Core.Tests", "Paket.VisualStudio.Core.Tests\Paket.VisualStudio.Core.Tests.fsproj", "{F244BB19-3734-4F31-BE1D-C7286B7212E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{8CFE7395-4727-4C2B-8D70-DD569A34FE0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CFE7395-4727-4C2B-8D70-DD569A34FE0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CFE7395-4727-4C2B-8D70-DD569A34FE0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{585D61F9-5B69-4469-8249-1D6E6BB39FE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{585D61F9-5B69-4469-8249-1D6E6BB39FE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{585D61F9-5B69-4469-8249-1D6E6BB39FE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{585D61F9-5B69-4469-8249-1D6E6BB39FE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F244BB19-3734-4F31-BE1D-C7286B7212E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F244BB19-3734-4F31-BE1D-C7286B7212E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F244BB19-3734-4F31-BE1D-C7286B7212E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F244BB19-3734-4F31-BE1D-C7286B7212E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

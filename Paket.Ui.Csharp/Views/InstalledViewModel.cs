@@ -2,7 +2,6 @@ namespace Paket.Ui.Csharp
 {
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.IO;
     using System.Linq;
     using System.Runtime.CompilerServices;
 
@@ -10,40 +9,67 @@ namespace Paket.Ui.Csharp
 
     public class InstalledViewModel : INotifyPropertyChanged
     {
-        public static readonly InstalledViewModel Default = new InstalledViewModel(RootDirectory.Current);
+        private DependencyInfo selectedDependency;
+        private IReadOnlyCollection<GroupInfo> groups;
+        private IReadOnlyCollection<DependencyInfo> packages;
 
-        private Requirements.PackageRequirement selectedPackage;
-
-        public InstalledViewModel(DirectoryInfo rootDirectory)
+        public InstalledViewModel()
         {
-            var dependencies = Paket.Dependencies.Locate(rootDirectory.FullName);
-            var dependenciesFile = dependencies.GetDependenciesFile();
-            Packages = dependenciesFile.Groups.SelectMany(g => g.Value.Packages)
-                                       .ToArray();
+            this.Refresh();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public IReadOnlyCollection<Requirements.PackageRequirement> Packages { get; }
+        public IReadOnlyCollection<GroupInfo> Groups
+        {
+            get { return this.groups; }
+            private set
+            {
+                if (Equals(value, this.groups)) return;
+                this.groups = value;
+                this.OnPropertyChanged();
+            }
+        }
 
-        public Requirements.PackageRequirement SelectedPackage
+        public IReadOnlyCollection<DependencyInfo> Packages
+        {
+            get { return this.packages; }
+            private set
+            {
+                if (Equals(value, this.packages)) return;
+                this.packages = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        public DependencyInfo SelectedDependency
         {
             get
             {
-                return selectedPackage;
+                return this.selectedDependency;
             }
             set
             {
-                if (Equals(value, selectedPackage)) return;
-                selectedPackage = value;
-                OnPropertyChanged();
+                if (Equals(value, this.selectedDependency)) return;
+                this.selectedDependency = value;
+                this.OnPropertyChanged();
             }
         }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void Refresh()
+        {
+            this.Groups = State.DependenciesFile
+                                       ?.Groups.Select(g => new GroupInfo(g))
+                                       .ToArray() ??
+                                       new GroupInfo[0];
+
+            this.Packages = this.Groups.SelectMany(g => g.Packages).ToArray();
         }
     }
 }

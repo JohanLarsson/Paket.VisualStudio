@@ -2,11 +2,12 @@
 {
     using System.IO;
 
-    public static class RootDirectory
+    public static class State
     {
-
         // Using global mutable state here, why not?
-        public static DirectoryInfo Current { get; set; } = DesigntimeDirectory();
+        public static DirectoryInfo RootDirectory { get; set; } = DesigntimeDirectory();
+
+        public static DependenciesFile DependenciesFile => RootDirectory == null ? null : Dependencies.Locate(RootDirectory.FullName).GetDependenciesFile();
 
         private static DirectoryInfo DesigntimeDirectory()
         {

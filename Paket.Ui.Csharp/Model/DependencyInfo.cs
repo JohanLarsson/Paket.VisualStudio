@@ -2,22 +2,18 @@
 {
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
-
     using JetBrains.Annotations;
 
-    public class MainViewModel : INotifyPropertyChanged
+    public class DependencyInfo : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public MainViewModel()
+        public DependencyInfo(string id)
         {
-            this.Browse = new BrowseViewModel(State.RootDirectory);
-            this.Installed = new InstalledViewModel();
+            this.Id = id;
         }
 
-        public BrowseViewModel Browse { get; }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public InstalledViewModel Installed { get; }
+        public string Id { get; }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

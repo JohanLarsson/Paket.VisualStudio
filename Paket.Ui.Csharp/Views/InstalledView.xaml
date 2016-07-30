@@ -1,11 +1,10 @@
 ﻿<UserControl x:Class="Paket.Ui.Csharp.InstalledView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Paket.Ui.Csharp"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             d:DataContext="{x:Static local:InstalledViewModel.Default}"
-             mc:Ignorable="d">
+             xmlns:local="clr-namespace:Paket.Ui.Csharp">
+    <UserControl.DataContext>
+        <local:InstalledViewModel />
+    </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -13,7 +12,7 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <local:PackageListView Packages="{Binding Packages}" SelectedPackage="{Binding SelectedPackage}" />
+        <local:PackageListView Packages="{Binding Packages}" SelectedPackage="{Binding SelectedDependency}" />
 
         <GridSplitter Grid.Column="1" />
 

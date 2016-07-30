@@ -11,12 +11,9 @@
     public class BrowseViewModel : INotifyPropertyChanged
     {
         private string searchText;
-
         private bool isIncludingPreRelease;
-
         private string selectedPackageSource;
-
-        private PackageInfo selectedPackage;
+        private DependencyInfo selectedDependency;
         private DirectoryInfo rootDirectory;
 
         public BrowseViewModel(DirectoryInfo rootDirectory)
@@ -32,13 +29,13 @@
         {
             get
             {
-                return searchText;
+                return this.searchText;
             }
             set
             {
-                if (value == searchText) return;
-                searchText = value;
-                OnPropertyChanged();
+                if (value == this.searchText) return;
+                this.searchText = value;
+                this.OnPropertyChanged();
             }
         }
 
@@ -46,13 +43,13 @@
         {
             get
             {
-                return isIncludingPreRelease;
+                return this.isIncludingPreRelease;
             }
             set
             {
-                if (value == isIncludingPreRelease) return;
-                isIncludingPreRelease = value;
-                OnPropertyChanged();
+                if (value == this.isIncludingPreRelease) return;
+                this.isIncludingPreRelease = value;
+                this.OnPropertyChanged();
             }
         }
 
@@ -62,36 +59,36 @@
         {
             get
             {
-                return selectedPackageSource;
+                return this.selectedPackageSource;
             }
             set
             {
-                if (value == selectedPackageSource) return;
-                selectedPackageSource = value;
-                OnPropertyChanged();
+                if (value == this.selectedPackageSource) return;
+                this.selectedPackageSource = value;
+                this.OnPropertyChanged();
             }
         }
 
-        public ObservableCollection<PackageInfo> FeedPackages { get; }
+        public ObservableCollection<DependencyInfo> FeedPackages { get; }
 
-        public PackageInfo SelectedPackage
+        public DependencyInfo SelectedDependency
         {
             get
             {
-                return selectedPackage;
+                return this.selectedDependency;
             }
             set
             {
-                if (Equals(value, selectedPackage)) return;
-                selectedPackage = value;
-                OnPropertyChanged();
+                if (Equals(value, this.selectedDependency)) return;
+                this.selectedDependency = value;
+                this.OnPropertyChanged();
             }
         }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
