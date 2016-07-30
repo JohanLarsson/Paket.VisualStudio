@@ -9,7 +9,7 @@
     {
         public ProjectsView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

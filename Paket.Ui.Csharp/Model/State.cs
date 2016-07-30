@@ -49,7 +49,7 @@ namespace Paket.Ui.Csharp
             get
             {
                 var lockfile = DependenciesFile?.FindLockfile();
-                return lockfile == null ? null : Paket.LockFile.LoadFrom(lockfile.FullName);
+                return lockfile == null ? null : LockFile.LoadFrom(lockfile.FullName);
             }
         }
 

@@ -3,11 +3,11 @@
     using System.Windows.Controls;
 
     /// <summary>
-    /// Interaction logic for PackageInfoView.xaml
+    /// Interaction logic for ProjectRowView.xaml
     /// </summary>
-    public partial class PackageInfoView : UserControl
+    public partial class ProjectRowView : UserControl
     {
-        public PackageInfoView()
+        public ProjectRowView()
         {
             this.InitializeComponent();
         }

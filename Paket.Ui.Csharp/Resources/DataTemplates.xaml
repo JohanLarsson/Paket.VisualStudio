@@ -35,7 +35,7 @@
         </Grid>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type paket:ProjectFile}">
-        <TextBlock Text="{Binding Name}" />
+    <DataTemplate x:Key="ProjectRowTemplate" DataType="{x:Type paket:ProjectFile}">
+        <csharp:ProjectRowView DataContext="{Binding}" />
     </DataTemplate>
 </ResourceDictionary>
