@@ -11,8 +11,23 @@
             <ColumnDefinition Width="3" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
+        <TabControl>
+            <TabItem Header="All packages">
+                <local:PackageListView Packages="{Binding Packages}" SelectedPackage="{Binding SelectedDependency}" />
+            </TabItem>
 
-        <local:PackageListView Packages="{Binding Packages}" SelectedPackage="{Binding SelectedDependency}" />
+            <TabItem Header="Groups">
+                <ListBox ItemsSource="{Binding Groups}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type local:GroupInfo}">
+                            <Expander Header="{Binding Name}" IsExpanded="True">
+                                <local:PackageListView Packages="{Binding Packages}" SelectedPackage="{Binding DataContext.SelectedDependency, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:InstalledView}}}" />
+                            </Expander>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </TabItem>
+        </TabControl>
 
         <GridSplitter Grid.Column="1" />
 
