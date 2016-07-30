@@ -39,6 +39,7 @@
 
         <TabItem Header="Tools" >
             <StackPanel>
+                <TextBlock Text="Init button?"/>
                 <TextBlock Text="Simplify button?"/>
             </StackPanel>
         </TabItem>
