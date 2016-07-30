@@ -16,14 +16,14 @@
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="{StaticResource GridSplitterGridLength}" />
-                <RowDefinition Height="150"/>
+                <RowDefinition Height="150" />
             </Grid.RowDefinitions>
 
             <TabControl>
                 <TabItem Header="All packages">
                     <ListBox ItemTemplate="{StaticResource PackageRowTemplate}"
-                         ItemsSource="{Binding Packages}"
-                         SelectedItem="{Binding Path=(local:State.SelectedPackage)}" />
+                             ItemsSource="{Binding Packages}"
+                             SelectedItem="{Binding Path=(local:State.SelectedPackage)}" />
                 </TabItem>
 
                 <TabItem Header="Groups">
@@ -32,8 +32,8 @@
                             <DataTemplate DataType="{x:Type local:GroupInfo}">
                                 <Expander Header="{Binding Name}" IsExpanded="True">
                                     <ListBox ItemTemplate="{StaticResource PackageRowTemplate}"
-                                         ItemsSource="{Binding Packages}"
-                                         SelectedItem="{Binding Path=(local:State.SelectedPackage)}" />
+                                             ItemsSource="{Binding Packages}"
+                                             SelectedItem="{Binding Path=(local:State.SelectedPackage)}" />
                                 </Expander>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -48,6 +48,6 @@
 
         <GridSplitter Grid.Column="1" />
 
-        <local:ProjectListAndInfoView Grid.Column="2"/>
+        <local:ProjectListAndInfoView Grid.Column="2" />
     </Grid>
 </UserControl>

@@ -28,6 +28,17 @@ namespace Paket.Ui.Csharp
 
         public static IReadOnlyList<ProjectFile> Projects => RootDirectory == null ? new ProjectFile[0] : ProjectFile.FindAllProjects(RootDirectory.FullName);
 
+        public static DependenciesFile DependenciesFile => RootDirectory == null ? null : Dependencies.Locate(RootDirectory.FullName).GetDependenciesFile();
+
+        public static LockFile LockFile
+        {
+            get
+            {
+                var lockfile = DependenciesFile?.FindLockfile();
+                return lockfile == null ? null : LockFile.LoadFrom(lockfile.FullName);
+            }
+        }
+
         public static ProjectFile SelectedProject
         {
             get { return selectedProject; }
@@ -58,22 +69,13 @@ namespace Paket.Ui.Csharp
             }
         }
 
-        public static DependenciesFile DependenciesFile => RootDirectory == null ? null : Dependencies.Locate(RootDirectory.FullName).GetDependenciesFile();
-
-        public static LockFile LockFile
-        {
-            get
-            {
-                var lockfile = DependenciesFile?.FindLockfile();
-                return lockfile == null ? null : LockFile.LoadFrom(lockfile.FullName);
-            }
-        }
 
         internal static void NotifyRefresh()
         {
             OnStaticPropertyChanged(nameof(RootDirectory));
             OnStaticPropertyChanged(nameof(Projects));
             OnStaticPropertyChanged(nameof(DependenciesFile));
+            OnStaticPropertyChanged(nameof(LockFile));
         }
 
         private static DirectoryInfo DesigntimeDirectory()
