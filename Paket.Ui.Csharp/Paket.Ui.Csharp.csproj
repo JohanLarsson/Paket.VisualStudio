@@ -52,8 +52,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
-    <Compile Include="Views\ProjectsView.xaml.cs">
-      <DependentUpon>ProjectsView.xaml</DependentUpon>
+    <Compile Include="Views\ProjectInfoView.xaml.cs">
+      <DependentUpon>ProjectInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProjectListAndInfoView.xaml.cs">
+      <DependentUpon>ProjectListAndInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProjectsListView.xaml.cs">
+      <DependentUpon>ProjectsListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProjectRowView.xaml.cs">
       <DependentUpon>ProjectRowView.xaml</DependentUpon>
@@ -119,7 +125,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ProjectsView.xaml">
+    <Page Include="Views\ProjectInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProjectListAndInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProjectsListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -56,19 +56,7 @@
 
             <GridSplitter Grid.Column="1" />
 
-            <Grid Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="{StaticResource GridSplitterGridLength}" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-
-                <local:ProjectsView Grid.Row="0" />
-
-                <GridSplitter Grid.Row="1" />
-
-                <local:PackageInfoView Grid.Row="2" />
-            </Grid>
+            <local:ProjectListAndInfoView Grid.Column="2"/>
         </Grid>
     </Grid>
 </UserControl>

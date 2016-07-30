@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Paket.Ui.Csharp"
              mc:Ignorable="d" >
-    <GroupBox Header="Info" DataContext="{Binding Path=(local:State.SelectedPackage)}">
+    <GroupBox Header="Package Info" DataContext="{Binding Path=(local:State.SelectedPackage)}">
         <StackPanel>
             <TextBlock Text="{Binding Id}" />
             <TextBlock Text="PLACEHOLDER" />

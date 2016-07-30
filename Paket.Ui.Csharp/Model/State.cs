@@ -11,6 +11,7 @@ namespace Paket.Ui.Csharp
     {
         private static DirectoryInfo rootDirectory = DesigntimeDirectory();
         private static PackageInfo selectedPackage;
+        private static ProjectFile selectedProject;
 
         public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 
@@ -27,6 +28,21 @@ namespace Paket.Ui.Csharp
 
         public static IReadOnlyList<ProjectFile> Projects => RootDirectory == null ? new ProjectFile[0] : ProjectFile.FindAllProjects(RootDirectory.FullName);
 
+        public static ProjectFile SelectedProject
+        {
+            get { return selectedProject; }
+            set
+            {
+                if (selectedProject == value)
+                {
+                    return;
+                }
+
+                selectedProject = value;
+                OnStaticPropertyChanged();
+            }
+        }
+
         public static PackageInfo SelectedPackage
         {
             get { return selectedPackage; }
@@ -42,9 +58,9 @@ namespace Paket.Ui.Csharp
             }
         }
 
-        internal static DependenciesFile DependenciesFile => RootDirectory == null ? null : Dependencies.Locate(RootDirectory.FullName).GetDependenciesFile();
+        public static DependenciesFile DependenciesFile => RootDirectory == null ? null : Dependencies.Locate(RootDirectory.FullName).GetDependenciesFile();
 
-        internal static LockFile LockFile
+        public static LockFile LockFile
         {
             get
             {

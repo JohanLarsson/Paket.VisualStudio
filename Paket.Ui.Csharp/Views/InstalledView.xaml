@@ -11,42 +11,43 @@
             <ColumnDefinition Width="{StaticResource GridSplitterGridLength}" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <TabControl>
-            <TabItem Header="All packages">
-                <ListBox ItemTemplate="{StaticResource PackageRowTemplate}"
-                         ItemsSource="{Binding Packages}"
-                         SelectedItem="{Binding Path=(local:State.SelectedPackage)}" />
-            </TabItem>
 
-            <TabItem Header="Groups">
-                <ListBox ItemsSource="{Binding Groups}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate DataType="{x:Type local:GroupInfo}">
-                            <Expander Header="{Binding Name}" IsExpanded="True">
-                                <ListBox ItemTemplate="{StaticResource PackageRowTemplate}"
-                                         ItemsSource="{Binding Packages}"
-                                         SelectedItem="{Binding Path=(local:State.SelectedPackage)}" />
-                            </Expander>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </TabItem>
-        </TabControl>
-
-        <GridSplitter Grid.Column="1" />
-
-        <Grid Grid.Column="2">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="{StaticResource GridSplitterGridLength}" />
-                <RowDefinition />
+                <RowDefinition Height="150"/>
             </Grid.RowDefinitions>
 
-            <local:ProjectsView Grid.Row="0" />
+            <TabControl>
+                <TabItem Header="All packages">
+                    <ListBox ItemTemplate="{StaticResource PackageRowTemplate}"
+                         ItemsSource="{Binding Packages}"
+                         SelectedItem="{Binding Path=(local:State.SelectedPackage)}" />
+                </TabItem>
+
+                <TabItem Header="Groups">
+                    <ListBox ItemsSource="{Binding Groups}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type local:GroupInfo}">
+                                <Expander Header="{Binding Name}" IsExpanded="True">
+                                    <ListBox ItemTemplate="{StaticResource PackageRowTemplate}"
+                                         ItemsSource="{Binding Packages}"
+                                         SelectedItem="{Binding Path=(local:State.SelectedPackage)}" />
+                                </Expander>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </TabItem>
+            </TabControl>
 
             <GridSplitter Grid.Row="1" />
 
             <local:PackageInfoView Grid.Row="2" />
         </Grid>
+
+        <GridSplitter Grid.Column="1" />
+
+        <local:ProjectListAndInfoView Grid.Column="2"/>
     </Grid>
 </UserControl>

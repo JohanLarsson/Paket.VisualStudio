@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Paket.Ui.Csharp.ProjectListAndInfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Paket.Ui.Csharp">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="{StaticResource GridSplitterGridLength}" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <local:ProjectsListView Grid.Row="0" />
+
+        <GridSplitter Grid.Row="1" />
+
+        <local:ProjectInfoView Grid.Row="2" />
+    </Grid>
+</UserControl>
+

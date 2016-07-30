@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="Paket.Ui.Csharp.ProjectInfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:paket="clr-namespace:Paket;assembly=Paket.Core"
+             xmlns:local="clr-namespace:Paket.Ui.Csharp"
+             d:DataContext="{d:DesignInstance paket:ProjectFile}"
+             mc:Ignorable="d">
+    <GroupBox Header="Project Info" DataContext="{Binding Path=(local:State.SelectedProject)}">
+        <ScrollViewer>
+            <StackPanel>
+                <TextBlock HorizontalAlignment="Left" Text="{Binding Name}" />
+                <TextBlock Text="INSTALLED_PACKAGES_PLACEHOLDER" />
+            </StackPanel>
+        </ScrollViewer>
+    </GroupBox>
+</UserControl>

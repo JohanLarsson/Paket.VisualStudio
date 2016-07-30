@@ -3,11 +3,11 @@
     using System.Windows.Controls;
 
     /// <summary>
-    /// Interaction logic for ProjectsView.xaml
+    /// Interaction logic for ProjectInfoView.xaml
     /// </summary>
-    public partial class ProjectsView : UserControl
+    public partial class ProjectInfoView : UserControl
     {
-        public ProjectsView()
+        public ProjectInfoView()
         {
             this.InitializeComponent();
         }
