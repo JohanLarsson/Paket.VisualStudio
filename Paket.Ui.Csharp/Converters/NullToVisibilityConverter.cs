@@ -6,6 +6,7 @@
     using System.Windows.Data;
     using System.Windows.Markup;
 
+    [MarkupExtensionReturnType(typeof(IValueConverter))]
     public class NullToVisibilityConverter : MarkupExtension, IValueConverter
     {
         public Visibility? WhenNull { get; set; }
