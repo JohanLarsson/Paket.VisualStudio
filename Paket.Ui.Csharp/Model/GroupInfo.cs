@@ -11,11 +11,11 @@ namespace Paket.Ui.Csharp
         public GroupInfo(KeyValuePair<Domain.GroupName, DependenciesGroup> group)
         {
             this.group = group;
-            this.Packages = group.Value.Packages.Select(x => new DependencyInfo(x.Name.ToString())).ToArray();
+            this.Packages = group.Value.Packages.Select(x => new PackageInfo(x.Name.ToString())).ToArray();
         }
 
         public string Name => this.group.Key.ToString();
 
-        public IReadOnlyList<DependencyInfo> Packages { get; }
+        public IReadOnlyList<PackageInfo> Packages { get; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Paket.Ui.Csharp
 {
+    using System;
     using System.IO;
     using System.Windows;
 
@@ -7,7 +8,10 @@
     {
         public MainWindow()
         {
-            State.RootDirectory = new DirectoryInfo(this.GetType().Assembly.Location);
+            var uri = new Uri(this.GetType().Assembly.CodeBase);
+            var paketVisualstudio = "Paket.VisualStudio";
+            var path = uri.LocalPath.Split(new [] { paketVisualstudio}, StringSplitOptions.None)[0] + paketVisualstudio;
+            State.RootDirectory = new DirectoryInfo(path);
         }
     }
 }

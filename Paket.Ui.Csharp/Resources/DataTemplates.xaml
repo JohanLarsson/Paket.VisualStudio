@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:csharp="clr-namespace:Paket.Ui.Csharp">
-    <DataTemplate DataType="{x:Type csharp:DependencyInfo}">
+                    xmlns:csharp="clr-namespace:Paket.Ui.Csharp"
+                    xmlns:paket="clr-namespace:Paket;assembly=Paket.Core">
+    <DataTemplate x:Key="PackageRowTemplate" DataType="{x:Type csharp:PackageInfo}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -32,5 +33,9 @@
                 <TextBlock Grid.Row="1" Text="PACKAGE_INFO_PLACEHOLDER" />
             </Grid>
         </Grid>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type paket:ProjectFile}">
+        <TextBlock Text="{Binding Name}" />
     </DataTemplate>
 </ResourceDictionary>

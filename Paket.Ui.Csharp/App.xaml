@@ -6,6 +6,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Paket.Ui.Csharp;component/Resources/DataTemplates.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Paket.Ui.Csharp;component/Resources/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

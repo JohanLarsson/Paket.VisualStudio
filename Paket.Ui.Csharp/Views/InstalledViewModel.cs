@@ -9,9 +9,8 @@ namespace Paket.Ui.Csharp
 
     public class InstalledViewModel : INotifyPropertyChanged
     {
-        private DependencyInfo selectedDependency;
         private IReadOnlyCollection<GroupInfo> groups;
-        private IReadOnlyCollection<DependencyInfo> packages;
+        private IReadOnlyCollection<PackageInfo> packages;
 
         public InstalledViewModel()
         {
@@ -31,27 +30,13 @@ namespace Paket.Ui.Csharp
             }
         }
 
-        public IReadOnlyCollection<DependencyInfo> Packages
+        public IReadOnlyCollection<PackageInfo> Packages
         {
             get { return this.packages; }
             private set
             {
                 if (Equals(value, this.packages)) return;
                 this.packages = value;
-                this.OnPropertyChanged();
-            }
-        }
-
-        public DependencyInfo SelectedDependency
-        {
-            get
-            {
-                return this.selectedDependency;
-            }
-            set
-            {
-                if (Equals(value, this.selectedDependency)) return;
-                this.selectedDependency = value;
                 this.OnPropertyChanged();
             }
         }

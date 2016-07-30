@@ -13,7 +13,9 @@
         </Grid.ColumnDefinitions>
         <TabControl>
             <TabItem Header="All packages">
-                <local:PackageListView Packages="{Binding Packages}" SelectedPackage="{Binding SelectedDependency}" />
+                <ListBox ItemTemplate="{StaticResource PackageRowTemplate}"
+                         ItemsSource="{Binding Packages}"
+                         SelectedItem="{Binding Path=(local:State.SelectedPackage)}" />
             </TabItem>
 
             <TabItem Header="Groups">
@@ -21,7 +23,9 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="{x:Type local:GroupInfo}">
                             <Expander Header="{Binding Name}" IsExpanded="True">
-                                <local:PackageListView Packages="{Binding Packages}" SelectedPackage="{Binding DataContext.SelectedDependency, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:InstalledView}}}" />
+                                <ListBox ItemTemplate="{StaticResource PackageRowTemplate}"
+                                         ItemsSource="{Binding Packages}"
+                                         SelectedItem="{Binding Path=(local:State.SelectedPackage)}" />
                             </Expander>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -38,15 +42,11 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <GroupBox Header="Projecs">
-                <TextBlock Text="PLACEHOLDER" />
-            </GroupBox>
+            <local:ProjectsView Grid.Row="1" />
 
             <GridSplitter Grid.Row="1" />
 
-            <GroupBox Grid.Row="2" Header="Info">
-                <TextBlock Text="PLACEHOLDER" />
-            </GroupBox>
+            <local:PackageInfoView Grid.Row="2" />
         </Grid>
     </Grid>
 </UserControl>

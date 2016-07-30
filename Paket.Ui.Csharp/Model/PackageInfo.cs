@@ -4,9 +4,9 @@
     using System.Runtime.CompilerServices;
     using JetBrains.Annotations;
 
-    public class DependencyInfo : INotifyPropertyChanged
+    public class PackageInfo : INotifyPropertyChanged
     {
-        public DependencyInfo(string id)
+        public PackageInfo(string id)
         {
             this.Id = id;
         }

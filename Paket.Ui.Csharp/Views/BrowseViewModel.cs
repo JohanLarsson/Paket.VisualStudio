@@ -13,13 +13,6 @@
         private string searchText;
         private bool isIncludingPreRelease;
         private string selectedPackageSource;
-        private DependencyInfo selectedPackage;
-        private DirectoryInfo rootDirectory;
-
-        public BrowseViewModel(DirectoryInfo rootDirectory)
-        {
-            this.rootDirectory = rootDirectory;
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -69,21 +62,7 @@
             }
         }
 
-        public ObservableCollection<DependencyInfo> Packages { get; }
-
-        public DependencyInfo SelectedPackage
-        {
-            get
-            {
-                return this.selectedPackage;
-            }
-            set
-            {
-                if (Equals(value, this.selectedPackage)) return;
-                this.selectedPackage = value;
-                this.OnPropertyChanged();
-            }
-        }
+        public ObservableCollection<PackageInfo> Packages { get; }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
