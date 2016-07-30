@@ -1,0 +1,36 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:csharp="clr-namespace:Paket.Ui.Csharp">
+    <DataTemplate DataType="{x:Type csharp:DependencyInfo}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Image Width="24"
+                   Height="24"
+                   Margin="2"
+                   Source="pack://application:,,,/Paket.Ui.Csharp;component/Images/NuGetIcon.png" />
+            <Grid Grid.Column="1" VerticalAlignment="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontWeight="Bold" Text="{Binding Id}" />
+                        <TextBlock Margin="2,0,0,0" Text="by CREATOR_PLACEHOLDER" />
+                    </StackPanel>
+
+                    <TextBlock Grid.Column="1" Text="VERSION_PLACEHOLDER" />
+                </Grid>
+
+                <TextBlock Grid.Row="1" Text="PACKAGE_INFO_PLACEHOLDER" />
+            </Grid>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

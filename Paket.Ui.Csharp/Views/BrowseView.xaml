@@ -50,7 +50,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <local:PackageListView Packages="{Binding FeedPackages}" SelectedPackage="{Binding SelectedDependency}" />
+            <ListBox ItemsSource="{Binding Packages}" SelectedItem="{Binding SelectedPackage}" />
 
             <GridSplitter Grid.Column="1" />
 

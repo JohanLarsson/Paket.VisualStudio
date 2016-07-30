@@ -13,7 +13,7 @@
         private string searchText;
         private bool isIncludingPreRelease;
         private string selectedPackageSource;
-        private DependencyInfo selectedDependency;
+        private DependencyInfo selectedPackage;
         private DirectoryInfo rootDirectory;
 
         public BrowseViewModel(DirectoryInfo rootDirectory)
@@ -69,18 +69,18 @@
             }
         }
 
-        public ObservableCollection<DependencyInfo> FeedPackages { get; }
+        public ObservableCollection<DependencyInfo> Packages { get; }
 
-        public DependencyInfo SelectedDependency
+        public DependencyInfo SelectedPackage
         {
             get
             {
-                return this.selectedDependency;
+                return this.selectedPackage;
             }
             set
             {
-                if (Equals(value, this.selectedDependency)) return;
-                this.selectedDependency = value;
+                if (Equals(value, this.selectedPackage)) return;
+                this.selectedPackage = value;
                 this.OnPropertyChanged();
             }
         }
