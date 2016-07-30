@@ -13,7 +13,7 @@
             if (Is.InDesignMode)
             {
                 // Hacking it quick and dirty for now.
-                return new DirectoryInfo(@"C:\Git\ThirdParty\Paket.VisualStudio");
+                return new DirectoryInfo(@"C:\Git\Third Party\Paket.VisualStudio");
             }
 
             return null;

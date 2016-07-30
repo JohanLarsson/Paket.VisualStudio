@@ -116,7 +116,6 @@
     </None>
     <None Include="paket.references" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\NuGetIcon.png" />
   </ItemGroup>

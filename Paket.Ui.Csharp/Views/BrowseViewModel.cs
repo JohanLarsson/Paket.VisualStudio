@@ -41,6 +41,7 @@
                 OnPropertyChanged();
             }
         }
+
         public bool IsIncludingPreRelease
         {
             get
@@ -54,6 +55,7 @@
                 OnPropertyChanged();
             }
         }
+
         public ObservableCollection<string> PackageSources { get; }
 
         public string SelectedPackageSource

@@ -22,6 +22,25 @@
 
         <TabItem Header="Updates" />
 
-        <TabItem Header="Tools" />
+        <TabItem Header="Verify">
+            <StackPanel>
+                <TextBlock Text="Check that project do not reference package dlls in bin/??. Ask if user wants to point the ref to packages/??"/>
+            </StackPanel>
+        </TabItem>
+        
+        <TabItem Header="Pack">
+            <StackPanel>
+                <TextBlock Text="List projects with templates"/>
+                <TextBlock Text="Add template to project button?"/>
+                <TextBlock Text="Build button?"/>
+                <TextBlock Text="Pack button"/>
+            </StackPanel>
+        </TabItem>
+
+        <TabItem Header="Tools" >
+            <StackPanel>
+                <TextBlock Text="Simplify button?"/>
+            </StackPanel>
+        </TabItem>
     </TabControl>
 </UserControl>
