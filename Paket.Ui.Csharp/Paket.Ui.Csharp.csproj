@@ -55,7 +55,7 @@
     <Compile Include="Extensions\OptionExt.cs" />
     <Compile Include="Maps\DependenciesMap.cs" />
     <Compile Include="Maps\Dependency.cs" />
-    <Compile Include="Maps\ProjectViewModel.cs" />
+    <Compile Include="ViewModels\ProjectViewModel.cs" />
     <Compile Include="State\InstalledDependencies.cs" />
     <Compile Include="Views\ProjectListAndInfoView.xaml.cs">
       <DependentUpon>ProjectListAndInfoView.xaml</DependentUpon>
