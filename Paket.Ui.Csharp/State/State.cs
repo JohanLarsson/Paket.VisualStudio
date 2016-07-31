@@ -11,7 +11,7 @@ namespace Paket.Ui.Csharp
     public static class State
     {
         private static FileInfo solutionFile = DesigntimeSolutionFile();
-        private static object selectedDependency;
+        private static DependencyViewModel selectedDependency;
         private static ProjectViewModel selectedProject;
         private static ProjectFile[] projectFiles;
 
@@ -68,7 +68,7 @@ namespace Paket.Ui.Csharp
             }
         }
 
-        public static object SelectedDependency
+        public static DependencyViewModel SelectedDependency
         {
             get { return selectedDependency; }
             set

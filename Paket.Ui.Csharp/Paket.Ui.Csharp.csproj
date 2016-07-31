@@ -54,8 +54,10 @@
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Extensions\OptionExt.cs" />
     <Compile Include="ViewModels\DependencyViewModel.cs" />
+    <Compile Include="ViewModels\PackageViewModel.cs" />
     <Compile Include="ViewModels\ProjectViewModel.cs" />
     <Compile Include="State\InstalledDependencies.cs" />
+    <Compile Include="ViewModels\RemoteFileViewModel.cs" />
     <Compile Include="Views\ProjectListAndInfoView.xaml.cs">
       <DependentUpon>ProjectListAndInfoView.xaml</DependentUpon>
     </Compile>

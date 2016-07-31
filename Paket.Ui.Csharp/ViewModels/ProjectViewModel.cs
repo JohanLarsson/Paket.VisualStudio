@@ -1,6 +1,7 @@
 ﻿namespace Paket.Ui.Csharp
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.IO;
@@ -10,15 +11,14 @@
 
     public sealed class ProjectViewModel : INotifyPropertyChanged
     {
-        // don't think there is a need for purging this.
         private static readonly List<ProjectViewModel> Cache = new List<ProjectViewModel>();
         private static readonly InstallGroup[] EmptyInstallGroups = new InstallGroup[0];
 
         private readonly string projectFileName;
         private ProjectFile project1;
         private IReadOnlyList<InstallGroup> groups;
-        private IEnumerable<PackageInstallSettings> packages;
-        private IEnumerable<RemoteFileReference> remoteFiles;
+        private IReadOnlyList<PackageViewModel> packages;
+        private IReadOnlyList<RemoteFileViewModel> remoteFiles;
         private IEnumerable<object> allDependencies;
         private ReferencesFile referenceFile;
 
@@ -71,7 +71,7 @@
             }
         }
 
-        public IEnumerable<PackageInstallSettings> Packages
+        public IReadOnlyList<PackageViewModel> Packages
         {
             get { return this.packages; }
             private set
@@ -82,7 +82,7 @@
             }
         }
 
-        public IEnumerable<RemoteFileReference> RemoteFiles
+        public IReadOnlyList<RemoteFileViewModel> RemoteFiles
         {
             get { return this.remoteFiles; }
             private set
@@ -141,8 +141,15 @@
                 ? null
                 : ReferencesFile.FromFile(referencesFileName);
             this.Groups = this.referenceFile?.Groups.Select(x => x.Value).ToArray() ?? EmptyInstallGroups;
-            this.Packages = this.Groups.SelectMany(x => x.NugetPackages);
-            this.RemoteFiles = this.Groups.SelectMany(x => x.RemoteFiles);
+
+            this.Packages = this.Groups.SelectMany(x => x.NugetPackages)
+                                       .Select(PackageViewModel.GetOrCreate)
+                                       .ToArray();
+
+            this.RemoteFiles = this.Groups.SelectMany(x => x.RemoteFiles)
+                                   .Select(RemoteFileViewModel.GetOrCreate)
+                                   .ToArray();
+
             this.AllDependencies = this.Packages?.Concat<object>(this.RemoteFiles);
         }
     }

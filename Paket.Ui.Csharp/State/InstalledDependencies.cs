@@ -12,11 +12,11 @@
 
         public IEnumerable<DependenciesGroup> Groups => State.DependenciesFile?.Groups.Select(g => g.Value);
 
-        public IEnumerable<Requirements.PackageRequirement> Packages => this.Groups?.SelectMany(g => g.Packages);
+        public IEnumerable<PackageViewModel> Packages => this.Groups?.SelectMany(g => g.Packages).Select(PackageViewModel.GetOrCreate);
 
-        public IEnumerable<ModuleResolver.UnresolvedSource> RemoteFiles => this.Groups?.SelectMany(g => g.RemoteFiles);
+        public IEnumerable<RemoteFileViewModel> RemoteFiles => this.Groups?.SelectMany(g => g.RemoteFiles).Select(RemoteFileViewModel.GetOrCreate);
 
-        public IEnumerable<object> AllDependencies => this.Packages?.Concat<object>(this.RemoteFiles);
+        public IEnumerable<DependencyViewModel> AllDependencies => this.Packages?.Concat<DependencyViewModel>(this.RemoteFiles);
 
         internal void Refresh()
         {

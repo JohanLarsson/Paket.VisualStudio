@@ -4,9 +4,16 @@
     using System.Runtime.CompilerServices;
     using JetBrains.Annotations;
 
-    public class DependencyViewModel : INotifyPropertyChanged
+    public abstract class DependencyViewModel : INotifyPropertyChanged
     {
+        protected DependencyViewModel(string name)
+        {
+            this.Name = name;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public string Name { get; }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
