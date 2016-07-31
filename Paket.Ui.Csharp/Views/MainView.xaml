@@ -14,7 +14,9 @@
             <local:InstalledView />
         </TabItem>
 
-        <TabItem Header="Updates" />
+        <TabItem Header="Updates">
+            <local:UpdateView />
+        </TabItem>
 
         <TabItem Header="Verify">
             <StackPanel>
