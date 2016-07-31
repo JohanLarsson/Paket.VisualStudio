@@ -13,7 +13,7 @@ namespace Paket.Ui.Csharp
         {
         }
 
-        public override string Version => GetLockFileVersion();
+        public override string Version => this.GetLockFileVersion();
 
         private string GetLockFileVersion()
         {

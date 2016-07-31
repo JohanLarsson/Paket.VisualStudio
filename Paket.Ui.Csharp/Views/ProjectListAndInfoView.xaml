@@ -51,7 +51,14 @@
                     <ItemsControl ItemsSource="{Binding AllDependencies}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type local:DependencyViewModel}">
-                                <TextBlock Text="{Binding Name}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Margin="2"
+                                           Height="12"
+                                           Source="{Binding .,
+                                                            Converter={local:DependencyToImageConverter WhenPackage='pack://application:,,,/Paket.Ui.Csharp;component/Images/NuGetIcon.png',
+                                                                                                        WhenRemoteFile='pack://application:,,,/Paket.Ui.Csharp;component/Images/OctocatIcon.png'}}" />
+                                    <TextBlock Text="{Binding Name}" />
+                                </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

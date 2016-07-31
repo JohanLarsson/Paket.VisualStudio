@@ -18,7 +18,8 @@
 
         <TabItem Header="Verify">
             <StackPanel>
-                <TextBlock Text="Check that project do not reference package dlls in bin/??. Ask if user wants to point the ref to packages/??" />
+                <TextBlock Text="Check that project does not reference package dlls in bin/??." />
+                <TextBlock Text="Ask if user wants to point the ref to packages/?? or delete" />
             </StackPanel>
         </TabItem>
 

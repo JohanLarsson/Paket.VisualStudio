@@ -1,17 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Paket.Ui.Csharp"
-                    xmlns:paket="clr-namespace:Paket;assembly=Paket.Core">
+                    xmlns:local="clr-namespace:Paket.Ui.Csharp">
     <DataTemplate x:Key="DependencyRowTemplate" DataType="{x:Type local:DependencyViewModel}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Image Width="24"
-                   Height="24"
+            <Image Height="24"
                    Margin="2"
-                   Source="pack://application:,,,/Paket.Ui.Csharp;component/Images/NuGetIcon.png" />
+                   Source="{Binding ., Converter={local:DependencyToImageConverter WhenPackage='pack://application:,,,/Paket.Ui.Csharp;component/Images/NuGetIcon.png',
+                                                                                   WhenRemoteFile='pack://application:,,,/Paket.Ui.Csharp;component/Images/OctocatIcon.png'}}" />
             <Grid Grid.Column="1" VerticalAlignment="Top">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

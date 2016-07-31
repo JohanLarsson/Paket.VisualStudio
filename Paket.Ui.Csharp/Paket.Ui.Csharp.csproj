@@ -51,6 +51,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\DependencyToImageConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Extensions\OptionExt.cs" />
     <Compile Include="ViewModels\DependencyViewModel.cs" />

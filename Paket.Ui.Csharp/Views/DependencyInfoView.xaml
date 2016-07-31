@@ -8,6 +8,12 @@
     <GroupBox DataContext="{Binding Path=(local:State.SelectedDependency)}" Header="Package Info">
         <StackPanel>
             <StackPanel Orientation="Horizontal">
+                <Image Height="12"
+                       Margin="2"
+                       Source="{Binding .,
+                                        Converter={local:DependencyToImageConverter WhenPackage='pack://application:,,,/Paket.Ui.Csharp;component/Images/NuGetIcon.png',
+                                                                                    WhenRemoteFile='pack://application:,,,/Paket.Ui.Csharp;component/Images/OctocatIcon.png'}}" />
+
                 <TextBlock FontWeight="Bold" Text="{Binding Name}" />
                 <TextBlock Margin="2,0,0,0" Text="{Binding Version}" />
             </StackPanel>

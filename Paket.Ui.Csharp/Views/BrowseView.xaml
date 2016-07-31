@@ -9,7 +9,7 @@
              d:DesignWidth="600"
              mc:Ignorable="d">
     <UserControl.DataContext>
-        <local:BrowseViewModel></local:BrowseViewModel>
+        <local:BrowseViewModel />
     </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
@@ -74,3 +74,4 @@
         </Grid>
     </Grid>
 </UserControl>
+
