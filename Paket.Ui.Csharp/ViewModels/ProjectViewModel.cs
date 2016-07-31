@@ -1,43 +1,108 @@
 ﻿namespace Paket.Ui.Csharp
 {
     using System;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.IO;
     using System.Linq;
     using System.Runtime.CompilerServices;
     using JetBrains.Annotations;
 
     public sealed class ProjectViewModel : INotifyPropertyChanged
     {
-        private readonly string project;
-        private static readonly ConcurrentDictionary<string, ProjectViewModel> Map = new ConcurrentDictionary<string, ProjectViewModel>(StringComparer.OrdinalIgnoreCase);
+        // don't think there is a need for purging this.
+        private static readonly List<ProjectViewModel> Cache = new List<ProjectViewModel>();
+        private static readonly InstallGroup[] EmptyInstallGroups = new InstallGroup[0];
 
-        private ProjectViewModel(string project)
+        private readonly string projectFileName;
+        private ProjectFile project1;
+        private IReadOnlyList<InstallGroup> groups;
+        private IEnumerable<PackageInstallSettings> packages;
+        private IEnumerable<RemoteFileReference> remoteFiles;
+        private IEnumerable<object> allDependencies;
+        private ReferencesFile referenceFile;
+
+        static ProjectViewModel()
         {
-            this.project = project;
+            State.StaticPropertyChanged += (_, e) =>
+            {
+                switch (e.PropertyName)
+                {
+                    case nameof(State.SelectedDependency):
+                        {
+                            foreach (var vm in Cache)
+                            {
+                                //vm.OnPropertyChanged(nameof(HasSelectedDependency));
+                            }
+
+                            break;
+                        }
+                }
+            };
+        }
+
+        private ProjectViewModel(string projectFileName)
+        {
+            this.projectFileName = projectFileName;
+            this.Refresh();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ProjectFile Project => State.ProjectFiles.Single(p => p.FileName == this.project);
-
-        public IEnumerable<InstallGroup> Groups
+        public ProjectFile Project
         {
-            get
+            get { return this.project1; }
+            private set
             {
-                var referenceFile = this.Project?.FindReferencesFile().ValueOrNull();
-                return referenceFile == null
-                    ? new InstallGroup[0]
-                    : ReferencesFile.FromFile(referenceFile).Groups.Select(x => x.Value);
+                if (Equals(value, this.project1)) return;
+                this.project1 = value;
+                this.OnPropertyChanged();
             }
         }
 
-        public IEnumerable<PackageInstallSettings> Packages => this.Groups?.SelectMany(x => x.NugetPackages);
+        public IReadOnlyList<InstallGroup> Groups
+        {
+            get { return this.groups; }
+            private set
+            {
+                if (Equals(value, this.groups)) return;
+                this.groups = value;
+                this.OnPropertyChanged();
+            }
+        }
 
-        public IEnumerable<RemoteFileReference> RemoteFiles => this.Groups?.SelectMany(x => x.RemoteFiles);
+        public IEnumerable<PackageInstallSettings> Packages
+        {
+            get { return this.packages; }
+            private set
+            {
+                if (Equals(value, this.packages)) return;
+                this.packages = value;
+                this.OnPropertyChanged();
+            }
+        }
 
-        public IEnumerable<object> AllDependencies => this.Packages?.Concat<object>(this.RemoteFiles);
+        public IEnumerable<RemoteFileReference> RemoteFiles
+        {
+            get { return this.remoteFiles; }
+            private set
+            {
+                if (Equals(value, this.remoteFiles)) return;
+                this.remoteFiles = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        public IEnumerable<object> AllDependencies
+        {
+            get { return this.allDependencies; }
+            private set
+            {
+                if (Equals(value, this.allDependencies)) return;
+                this.allDependencies = value;
+                this.OnPropertyChanged();
+            }
+        }
 
         internal static ProjectViewModel GetOrCreate(ProjectFile projectFile)
         {
@@ -46,7 +111,14 @@
                 return null;
             }
 
-            return Map.GetOrAdd(projectFile.FileName, x => new ProjectViewModel(x));
+            var match = Cache.SingleOrDefault(x => string.Equals(x.projectFileName, projectFile.FileName, StringComparison.OrdinalIgnoreCase));
+            if (match == null)
+            {
+                match = new ProjectViewModel(projectFile.FileName);
+                Cache.Add(match);
+            }
+
+            return match;
         }
 
         [NotifyPropertyChangedInvocator]
@@ -57,10 +129,21 @@
 
         private void Refresh()
         {
-            this.OnPropertyChanged(nameof(this.Project));
-            this.OnPropertyChanged(nameof(this.Groups));
-            this.OnPropertyChanged(nameof(this.Packages));
-            this.OnPropertyChanged(nameof(this.RemoteFiles));
+            if (!File.Exists(this.projectFileName))
+            {
+                Cache.Remove(this);
+                return;
+            }
+
+            this.Project = State.ProjectFiles.Single(p => p.FileName == this.projectFileName);
+            var referencesFileName = this.Project.FindReferencesFile().ValueOrNull();
+            this.referenceFile = referencesFileName == null
+                ? null
+                : ReferencesFile.FromFile(referencesFileName);
+            this.Groups = this.referenceFile?.Groups.Select(x => x.Value).ToArray() ?? EmptyInstallGroups;
+            this.Packages = this.Groups.SelectMany(x => x.NugetPackages);
+            this.RemoteFiles = this.Groups.SelectMany(x => x.RemoteFiles);
+            this.AllDependencies = this.Packages?.Concat<object>(this.RemoteFiles);
         }
     }
 }

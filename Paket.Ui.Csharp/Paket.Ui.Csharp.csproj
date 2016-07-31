@@ -53,8 +53,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Extensions\OptionExt.cs" />
-    <Compile Include="Maps\DependenciesMap.cs" />
-    <Compile Include="Maps\Dependency.cs" />
+    <Compile Include="ViewModels\DependencyViewModel.cs" />
     <Compile Include="ViewModels\ProjectViewModel.cs" />
     <Compile Include="State\InstalledDependencies.cs" />
     <Compile Include="Views\ProjectListAndInfoView.xaml.cs">
@@ -142,6 +141,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\OctocatIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Maps\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

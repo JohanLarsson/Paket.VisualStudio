@@ -4,7 +4,7 @@
     using System.Runtime.CompilerServices;
     using JetBrains.Annotations;
 
-    public class Dependency : INotifyPropertyChanged
+    public class DependencyViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -22,7 +22,11 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <CheckBox Grid.Column="0" Visibility="{Binding Path=(local:State.SelectedDependency), Converter={local:NullToVisibilityConverter WhenNull=Hidden, WhenNot=Visible}}" />
+                            <CheckBox Grid.Column="0"
+                                      IsChecked="{Binding HasSelectedDependency}"
+                                      Visibility="{Binding Path=(local:State.SelectedDependency),
+                                                           Converter={local:NullToVisibilityConverter WhenNull=Hidden,
+                                                                                                      WhenNot=Visible}}" />
                             <TextBlock Grid.Column="1"
                                        HorizontalAlignment="Left"
                                        Text="{Binding Project.Name}" />
