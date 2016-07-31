@@ -6,52 +6,33 @@ namespace Paket.Ui.Csharp
     public class PackageViewModel : DependencyViewModel
     {
         private static readonly List<PackageViewModel> Cache = new List<PackageViewModel>();
-        private readonly PackageInstallSettings packageInstallSettings;
-        private Requirements.PackageRequirement packageRequirement;
 
-        private PackageViewModel(Requirements.PackageRequirement packageRequirement)
-            : base(packageRequirement.Name.ToString())
+        private PackageViewModel(string name)
+            : base(name)
         {
-            this.packageRequirement = packageRequirement;
-        }
-
-        private PackageViewModel(PackageInstallSettings packageInstallSettings)
-            :base(packageInstallSettings.Name.ToString())
-        {
-            this.packageInstallSettings = packageInstallSettings;
         }
 
         internal static PackageViewModel GetOrCreate(PackageInstallSettings installSettings)
         {
-            if (installSettings == null)
-            {
-                return null;
-            }
-
-            var key = installSettings.Name.ToString();
-            var match = Cache.Find(x => string.Equals(x.Name, key, StringComparison.OrdinalIgnoreCase));
-            if (match == null)
-            {
-                match = new PackageViewModel(installSettings);
-                Cache.Add(match);
-            }
-
-            return match;
+            return GetOrCreate(installSettings?.Name.ToString());
         }
-
 
         internal static PackageViewModel GetOrCreate(Requirements.PackageRequirement packageRequirement)
         {
-            if (packageRequirement == null)
+            return GetOrCreate(packageRequirement?.Name.ToString());
+        }
+
+        private static PackageViewModel GetOrCreate(string name)
+        {
+            if (name == null)
             {
                 return null;
             }
 
-            var key = packageRequirement.Name.ToString();
-            var match = Cache.Find(x => string.Equals(x.Name, key, StringComparison.OrdinalIgnoreCase));
+            var match = Cache.Find(x => string.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase));
             if (match == null)
             {
-                match = new PackageViewModel(packageRequirement);
+                match = new PackageViewModel(name);
                 Cache.Add(match);
             }
 
