@@ -48,8 +48,6 @@
     <None Include="Nuget.fsx" />
     <None Include="Nuget.Cache.fsx" />
     <None Include="paket.references" />
-    <None Include="Scripts\load-references-debug.fsx" />
-    <None Include="Scripts\load-project-debug.fsx" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
