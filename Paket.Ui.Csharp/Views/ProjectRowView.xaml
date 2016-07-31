@@ -13,7 +13,7 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <CheckBox Grid.Column="0" 
-                  Visibility="{Binding Path=(local:State.SelectedPackage), 
+                  Visibility="{Binding Path=(local:State.SelectedDependency), 
                                        Converter={local:NullToVisibilityConverter WhenNull=Hidden, WhenNot=Visible}}" />
         <TextBlock Grid.Column="1"
                    HorizontalAlignment="Left"

@@ -56,13 +56,13 @@
                     <RowDefinition Height="{StaticResource GridSplitterGridLength}" />
                     <RowDefinition Height="150" />
                 </Grid.RowDefinitions>
-                <ListBox ItemTemplate="{StaticResource PackageRowTemplate}"
+                <ListBox ItemTemplate="{StaticResource DependencyRowTemplate}"
                          ItemsSource="{Binding Packages}"
-                         SelectedItem="{Binding Path=(local:State.SelectedPackage)}" />
+                         SelectedItem="{Binding Path=(local:State.SelectedDependency)}" />
 
                 <GridSplitter Grid.Row="1" />
 
-                <local:PackageInfoView Grid.Row="2" />
+                <local:DependencyInfoView Grid.Row="2" />
             </Grid>
 
 

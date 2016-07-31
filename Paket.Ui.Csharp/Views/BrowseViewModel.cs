@@ -62,7 +62,7 @@
             }
         }
 
-        public ObservableCollection<PackageInfo> Packages { get; }
+        public ObservableCollection<object> Packages { get; }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

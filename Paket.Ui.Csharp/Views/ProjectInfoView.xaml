@@ -18,7 +18,7 @@
                            Visibility="{Binding .,
                                                 Converter={local:NullToVisibilityConverter WhenNull=Collapsed,
                                                                                            WhenNot=Visible}}" />
-                <ItemsControl local:ProjectDependenciesMap.ForProject="{Binding}" ItemsSource="{Binding Path=(local:ProjectDependenciesMap.Dependencies).AllDependencies, RelativeSource={RelativeSource Self}}" />
+                <ItemsControl local:ProjectDependenciesMap.ForProject="{Binding}" ItemsSource="{Binding Path=(local:ProjectDependenciesMap.Dependencies).Packages, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
         </ScrollViewer>
     </GroupBox>

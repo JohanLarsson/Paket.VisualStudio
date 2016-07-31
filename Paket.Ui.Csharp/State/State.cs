@@ -10,7 +10,7 @@ namespace Paket.Ui.Csharp
     public static class State
     {
         private static FileInfo solutionFile = DesigntimeSolutionFile();
-        private static PackageInfo selectedPackage;
+        private static object selectedDependency;
         private static ProjectFile selectedProject;
 
         public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
@@ -29,6 +29,8 @@ namespace Paket.Ui.Csharp
         public static IReadOnlyList<ProjectFile> Projects => SolutionFile == null ? new ProjectFile[0] : ProjectFile.FindAllProjects(SolutionFile.DirectoryName);
 
         public static DependenciesFile DependenciesFile => SolutionFile == null ? null : Dependencies.Locate(SolutionFile.DirectoryName).GetDependenciesFile();
+
+        public static InstalledDependencies InstalledDependencies { get; } = new InstalledDependencies();
 
         public static LockFile LockFile
         {
@@ -54,17 +56,17 @@ namespace Paket.Ui.Csharp
             }
         }
 
-        public static PackageInfo SelectedPackage
+        public static object SelectedDependency
         {
-            get { return selectedPackage; }
+            get { return selectedDependency; }
             set
             {
-                if (value == selectedPackage)
+                if (value == selectedDependency)
                 {
                     return;
                 }
 
-                selectedPackage = value;
+                selectedDependency = value;
                 OnStaticPropertyChanged();
             }
         }
@@ -83,7 +85,7 @@ namespace Paket.Ui.Csharp
             if (Is.InDesignMode)
             {
                 // Hacking it quick and dirty for now.
-                var sln = @"C:\Git\Third Party\Paket.VisualStudio\Paket.sln";
+                var sln = @"C:\Git\Third Party\Paket.VisualStudio\Paket.VisualStudio.sln";
                 return File.Exists(sln) ? new FileInfo(sln) : null;
             }
 

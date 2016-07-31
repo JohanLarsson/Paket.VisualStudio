@@ -2,29 +2,25 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.ComponentModel;
-    using System.Linq;
-    using System.Runtime.CompilerServices;
     using System.Windows;
-    using JetBrains.Annotations;
 
     public static class ProjectDependenciesMap
     {
-        private static readonly ProjectFile UnsetProjectFile = new ProjectFile(null, null, null, null, null);
-        private static readonly Dictionary<ProjectFile, Dependencies> Map = new Dictionary<ProjectFile, Dependencies>(ProjectFileNameComparer.Default);
+        internal static readonly ProjectFile NotSetProjectFile = new ProjectFile(null, null, null, null, null);
+
+        private static readonly Dictionary<ProjectFile, ProjectDependencies> Map = new Dictionary<ProjectFile, ProjectDependencies>(ProjectFileNameComparer.Default);
 
         public static readonly DependencyProperty ForProjectProperty = DependencyProperty.RegisterAttached(
             "ForProject",
             typeof(ProjectFile),
             typeof(ProjectDependenciesMap),
-            new PropertyMetadata(UnsetProjectFile, OnForProjectChanged));
+            new PropertyMetadata(NotSetProjectFile, OnForProjectChanged));
 
         private static readonly DependencyPropertyKey DependenciesPropertyKey = DependencyProperty.RegisterAttachedReadOnly(
             "Dependencies",
-            typeof(Dependencies),
+            typeof(ProjectDependencies),
             typeof(ProjectDependenciesMap),
-            new PropertyMetadata(new Dependencies(UnsetProjectFile)));
+            new PropertyMetadata(new ProjectDependencies(NotSetProjectFile)));
 
         public static readonly DependencyProperty DependenciesProperty = DependenciesPropertyKey.DependencyProperty;
 
@@ -38,14 +34,14 @@
             return (ProjectFile)element.GetValue(ForProjectProperty);
         }
 
-        private static void SetDependencies(this DependencyObject element, Dependencies value)
+        private static void SetDependencies(this DependencyObject element, ProjectDependencies value)
         {
             element.SetValue(DependenciesPropertyKey, value);
         }
 
-        public static Dependencies GetDependencies(DependencyObject element)
+        public static ProjectDependencies GetDependencies(DependencyObject element)
         {
-            return (Dependencies)element.GetValue(DependenciesProperty);
+            return (ProjectDependencies)element.GetValue(DependenciesProperty);
         }
 
         private static void OnForProjectChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -57,82 +53,14 @@
             }
 
             var projectFile = (ProjectFile)e.NewValue;
-            Dependencies dependencies;
-            if (!Map.TryGetValue(projectFile, out dependencies))
+            ProjectDependencies projectDependencies;
+            if (!Map.TryGetValue(projectFile, out projectDependencies))
             {
-                dependencies = new Dependencies(projectFile);
-                Map[projectFile] = dependencies;
+                projectDependencies = new ProjectDependencies(projectFile);
+                Map[projectFile] = projectDependencies;
             }
 
-            d.SetDependencies(dependencies);
-        }
-
-        public sealed class Dependencies : INotifyPropertyChanged
-        {
-            private readonly ProjectFile project;
-            private IEnumerable<InstallGroup> groups;
-
-            public Dependencies(ProjectFile project)
-            {
-                this.project = project;
-                this.Refresh();
-            }
-
-            public event PropertyChangedEventHandler PropertyChanged;
-
-            public IEnumerable<InstallGroup> Groups
-            {
-                get
-                {
-                    //this.VerifyProjectFile(); Could not get this to work
-                    return this.groups;
-                }
-                private set
-                {
-                    if (Equals(value, this.groups)) return;
-                    this.groups = value;
-                    this.OnPropertyChanged();
-                }
-            }
-
-            public IEnumerable<PackageInstallSettings> Packages => this.Groups?.SelectMany(x => x.NugetPackages);
-
-            public IEnumerable<RemoteFileReference> RemoteFiles => this.Groups?.SelectMany(x => x.RemoteFiles);
-
-            public IEnumerable<object> AllDependencies => this.Packages?.Concat<object>(this.RemoteFiles);
-
-            private void Refresh()
-            {
-                if (ReferenceEquals(this.project, UnsetProjectFile))
-                {
-                    return;
-                }
-
-                var referenceFile = this.project?.FindReferencesFile().ValueOrNull();
-                this.Groups = referenceFile == null 
-                    ? new InstallGroup[0]
-                    : ReferencesFile.FromFile(referenceFile).Groups.Select(x => x.Value);
-
-                this.OnPropertyChanged(nameof(this.Packages));
-                this.OnPropertyChanged(nameof(this.RemoteFiles));
-            }
-
-            [NotifyPropertyChangedInvocator]
-            private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-            {
-                this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            }
-
-            private void VerifyProjectFile()
-            {
-                if (ReferenceEquals(this.project, UnsetProjectFile))
-                {
-                    // ~compiletime~ check, will throw in the designer.
-                    var message = "ProjectDependenciesMap.ForProject must be set before getting dependencies.\r\n" +
-                                  "example local:ProjectDependenciesMap.ForProject=\"{Binding Project}\"";
-                    throw new InvalidOperationException(message);
-                }
-            }
+            d.SetDependencies(projectDependencies);
         }
 
         private class ProjectFileNameComparer : IEqualityComparer<ProjectFile>

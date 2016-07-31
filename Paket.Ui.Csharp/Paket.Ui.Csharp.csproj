@@ -53,7 +53,11 @@
     </ApplicationDefinition>
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Extensions\OptionExt.cs" />
+    <Compile Include="Maps\DependenciesMap.cs" />
+    <Compile Include="Maps\Dependency.cs" />
+    <Compile Include="Maps\ProjectDependencies.cs" />
     <Compile Include="Maps\ProjectDependenciesMap.cs" />
+    <Compile Include="State\InstalledDependencies.cs" />
     <Compile Include="Views\ProjectInfoView.xaml.cs">
       <DependentUpon>ProjectInfoView.xaml</DependentUpon>
     </Compile>
@@ -98,19 +102,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\Is.cs" />
-    <Compile Include="Model\State.cs" />
+    <Compile Include="State\Is.cs" />
+    <Compile Include="State\State.cs" />
     <Compile Include="Views\BrowseView.xaml.cs">
       <DependentUpon>BrowseView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BrowseViewModel.cs">
       <DependentUpon>BrowseView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\GroupInfo.cs" />
     <Compile Include="Views\InstalledView.xaml.cs">
-      <DependentUpon>InstalledView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\InstalledViewModel.cs">
       <DependentUpon>InstalledView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainView.xaml.cs">
@@ -123,7 +123,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\PackageInfoView.xaml">
+    <Page Include="Views\DependencyInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -145,9 +145,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\PackageInfo.cs" />
-    <Compile Include="Views\PackageInfoView.xaml.cs">
-      <DependentUpon>PackageInfoView.xaml</DependentUpon>
+    <Compile Include="Views\DependencyInfoView.xaml.cs">
+      <DependentUpon>DependencyInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

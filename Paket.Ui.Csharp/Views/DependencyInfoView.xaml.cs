@@ -3,11 +3,11 @@
     using System.Windows.Controls;
 
     /// <summary>
-    /// Interaction logic for PackageInfoView.xaml
+    /// Interaction logic for DependencyInfoView.xaml
     /// </summary>
-    public partial class PackageInfoView : UserControl
+    public partial class DependencyInfoView : UserControl
     {
-        public PackageInfoView()
+        public DependencyInfoView()
         {
             this.InitializeComponent();
         }

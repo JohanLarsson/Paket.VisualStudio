@@ -5,7 +5,7 @@
     <UserControl.DataContext>
         <local:MainViewModel />
     </UserControl.DataContext>
-    <TabControl>
+    <TabControl SelectedIndex="1">
         <TabItem Header="Browse">
             <local:BrowseView />
         </TabItem>

@@ -4,16 +4,9 @@
     using System.Runtime.CompilerServices;
     using JetBrains.Annotations;
 
-    public class PackageInfo : INotifyPropertyChanged
+    public class Dependency : INotifyPropertyChanged
     {
-        public PackageInfo(string id)
-        {
-            this.Id = id;
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public string Id { get; }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
