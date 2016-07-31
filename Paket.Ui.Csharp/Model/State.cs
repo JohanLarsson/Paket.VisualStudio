@@ -9,26 +9,26 @@ namespace Paket.Ui.Csharp
 
     public static class State
     {
-        private static DirectoryInfo rootDirectory = DesigntimeDirectory();
+        private static FileInfo solutionFile = DesigntimeSolutionFile();
         private static PackageInfo selectedPackage;
         private static ProjectFile selectedProject;
 
         public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 
         // Using global mutable state here, why not?
-        public static DirectoryInfo RootDirectory
+        public static FileInfo SolutionFile
         {
-            get { return rootDirectory; }
+            get { return solutionFile; }
             set
             {
-                rootDirectory = value;
+                solutionFile = value;
                 NotifyRefresh();
             }
         }
 
-        public static IReadOnlyList<ProjectFile> Projects => RootDirectory == null ? new ProjectFile[0] : ProjectFile.FindAllProjects(RootDirectory.FullName);
+        public static IReadOnlyList<ProjectFile> Projects => SolutionFile == null ? new ProjectFile[0] : ProjectFile.FindAllProjects(SolutionFile.DirectoryName);
 
-        public static DependenciesFile DependenciesFile => RootDirectory == null ? null : Dependencies.Locate(RootDirectory.FullName).GetDependenciesFile();
+        public static DependenciesFile DependenciesFile => SolutionFile == null ? null : Dependencies.Locate(SolutionFile.DirectoryName).GetDependenciesFile();
 
         public static LockFile LockFile
         {
@@ -72,19 +72,19 @@ namespace Paket.Ui.Csharp
 
         internal static void NotifyRefresh()
         {
-            OnStaticPropertyChanged(nameof(RootDirectory));
+            OnStaticPropertyChanged(nameof(SolutionFile));
             OnStaticPropertyChanged(nameof(Projects));
             OnStaticPropertyChanged(nameof(DependenciesFile));
             OnStaticPropertyChanged(nameof(LockFile));
         }
 
-        private static DirectoryInfo DesigntimeDirectory()
+        private static FileInfo DesigntimeSolutionFile()
         {
             if (Is.InDesignMode)
             {
                 // Hacking it quick and dirty for now.
-                var dir = @"C:\Git\Third Party\Paket.VisualStudio";
-                return Directory.Exists(dir) ? new DirectoryInfo(dir) : null;
+                var sln = @"C:\Git\Third Party\Paket.VisualStudio\Paket.sln";
+                return File.Exists(sln) ? new FileInfo(sln) : null;
             }
 
             return null;

@@ -11,7 +11,7 @@
             var uri = new Uri(this.GetType().Assembly.CodeBase);
             var paketVisualstudio = "Paket.VisualStudio";
             var path = uri.LocalPath.Split(new [] { paketVisualstudio}, StringSplitOptions.None)[0] + paketVisualstudio;
-            State.RootDirectory = new DirectoryInfo(path);
+            State.SolutionFile = new FileInfo(Path.Combine(path, "Paket.sln"));
         }
     }
 }
