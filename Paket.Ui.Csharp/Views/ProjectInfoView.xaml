@@ -9,9 +9,16 @@
     <GroupBox DataContext="{Binding Path=(local:State.SelectedProject)}" Header="Project Info">
         <ScrollViewer>
             <StackPanel>
-                <TextBlock HorizontalAlignment="Left" Text="{Binding Name}" />
-                <ItemsControl local:ProjectDependencies.ForProject="{Binding}" 
-                              ItemsSource="{Binding Path=(local:ProjectDependencies.Dependencies), RelativeSource={RelativeSource Self}}" />
+                <TextBlock HorizontalAlignment="Left"
+                           FontWeight="Bold"
+                           Text="{Binding Name}" />
+
+                <TextBlock HorizontalAlignment="Left"
+                           Text="References:"
+                           Visibility="{Binding .,
+                                                Converter={local:NullToVisibilityConverter WhenNull=Collapsed,
+                                                                                           WhenNot=Visible}}" />
+                <ItemsControl local:ProjectDependenciesMap.ForProject="{Binding}" ItemsSource="{Binding Path=(local:ProjectDependenciesMap.Dependencies).AllDependencies, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
         </ScrollViewer>
     </GroupBox>

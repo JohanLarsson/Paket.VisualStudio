@@ -53,7 +53,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Extensions\OptionExt.cs" />
-    <Compile Include="Model\ProjectDependencies.cs" />
+    <Compile Include="Maps\ProjectDependenciesMap.cs" />
     <Compile Include="Views\ProjectInfoView.xaml.cs">
       <DependentUpon>ProjectInfoView.xaml</DependentUpon>
     </Compile>

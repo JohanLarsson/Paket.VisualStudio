@@ -7,7 +7,7 @@
         internal static T ValueOrNull<T>(this FSharpOption<T> option)
             where T : class 
         { 
-            if (Microsoft.FSharp.Core.FSharpOption<T>.get_IsSome(option))
+            if (FSharpOption<T>.get_IsSome(option))
             {
                 return option.Value;
             }
