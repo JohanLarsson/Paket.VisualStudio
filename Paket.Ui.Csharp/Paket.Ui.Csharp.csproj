@@ -55,20 +55,10 @@
     <Compile Include="Extensions\OptionExt.cs" />
     <Compile Include="Maps\DependenciesMap.cs" />
     <Compile Include="Maps\Dependency.cs" />
-    <Compile Include="Maps\ProjectDependencies.cs" />
-    <Compile Include="Maps\ProjectDependenciesMap.cs" />
+    <Compile Include="Maps\ProjectViewModel.cs" />
     <Compile Include="State\InstalledDependencies.cs" />
-    <Compile Include="Views\ProjectInfoView.xaml.cs">
-      <DependentUpon>ProjectInfoView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ProjectListAndInfoView.xaml.cs">
       <DependentUpon>ProjectListAndInfoView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ProjectsListView.xaml.cs">
-      <DependentUpon>ProjectsListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ProjectRowView.xaml.cs">
-      <DependentUpon>ProjectRowView.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\DataTemplates.xaml">
       <SubType>Designer</SubType>
@@ -127,19 +117,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ProjectInfoView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\ProjectListAndInfoView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ProjectsListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ProjectRowView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -161,6 +139,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\NuGetIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OctocatIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

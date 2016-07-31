@@ -34,8 +34,4 @@
             </Grid>
         </Grid>
     </DataTemplate>
-    
-    <DataTemplate x:Key="ProjectRowTemplate" DataType="{x:Type paket:ProjectFile}">
-        <local:ProjectRowView DataContext="{Binding}" />
-    </DataTemplate>
 </ResourceDictionary>

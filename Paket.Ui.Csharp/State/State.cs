@@ -5,13 +5,15 @@ namespace Paket.Ui.Csharp
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.IO;
+    using System.Linq;
     using System.Runtime.CompilerServices;
 
     public static class State
     {
         private static FileInfo solutionFile = DesigntimeSolutionFile();
         private static object selectedDependency;
-        private static ProjectFile selectedProject;
+        private static ProjectViewModel selectedProject;
+        private static ProjectFile[] projectFiles;
 
         public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 
@@ -22,11 +24,21 @@ namespace Paket.Ui.Csharp
             set
             {
                 solutionFile = value;
-                NotifyRefresh();
+                Refresh();
             }
         }
 
-        public static IReadOnlyList<ProjectFile> Projects => SolutionFile == null ? new ProjectFile[0] : ProjectFile.FindAllProjects(SolutionFile.DirectoryName);
+        internal static ProjectFile[] ProjectFiles
+        {
+            get { return projectFiles; }
+            private set
+            {
+                projectFiles = value;
+                OnStaticPropertyChanged(nameof(Projects));
+            }
+        }
+
+        public static IEnumerable<ProjectViewModel> Projects => ProjectFiles.Select(ProjectViewModel.GetOrCreate);
 
         public static DependenciesFile DependenciesFile => SolutionFile == null ? null : Dependencies.Locate(SolutionFile.DirectoryName).GetDependenciesFile();
 
@@ -41,7 +53,7 @@ namespace Paket.Ui.Csharp
             }
         }
 
-        public static ProjectFile SelectedProject
+        public static ProjectViewModel SelectedProject
         {
             get { return selectedProject; }
             set
@@ -71,11 +83,10 @@ namespace Paket.Ui.Csharp
             }
         }
 
-
-        internal static void NotifyRefresh()
+        internal static void Refresh()
         {
             OnStaticPropertyChanged(nameof(SolutionFile));
-            OnStaticPropertyChanged(nameof(Projects));
+            ProjectFiles = solutionFile == null ? new ProjectFile[0] : ProjectFile.FindAllProjects(SolutionFile.DirectoryName);
             OnStaticPropertyChanged(nameof(DependenciesFile));
             OnStaticPropertyChanged(nameof(LockFile));
         }
@@ -86,7 +97,14 @@ namespace Paket.Ui.Csharp
             {
                 // Hacking it quick and dirty for now.
                 var sln = @"C:\Git\Third Party\Paket.VisualStudio\Paket.VisualStudio.sln";
-                return File.Exists(sln) ? new FileInfo(sln) : null;
+                if (File.Exists(sln))
+                {
+                    var slnFile = new FileInfo(sln);
+                    projectFiles = ProjectFile.FindAllProjects(slnFile.DirectoryName);
+                    return slnFile;
+                }
+
+                else return null;
             }
 
             return null;
