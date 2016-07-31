@@ -22,11 +22,7 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <CheckBox Grid.Column="0"
-                                      IsChecked="{Binding HasSelectedDependency}"
-                                      Visibility="{Binding Path=(local:State.SelectedDependency),
-                                                           Converter={local:NullToVisibilityConverter WhenNull=Hidden,
-                                                                                                      WhenNot=Visible}}" />
+                            <CheckBox Grid.Column="0" Visibility="{Binding Path=(local:State.SelectedDependency), Converter={local:NullToVisibilityConverter WhenNull=Hidden, WhenNot=Visible}}" />
                             <TextBlock Grid.Column="1"
                                        HorizontalAlignment="Left"
                                        Text="{Binding Project.Name}" />
@@ -52,7 +48,13 @@
                                Visibility="{Binding .,
                                                     Converter={local:NullToVisibilityConverter WhenNull=Collapsed,
                                                                                                WhenNot=Visible}}" />
-                    <ItemsControl ItemsSource="{Binding AllDependencies}" />
+                    <ItemsControl ItemsSource="{Binding AllDependencies}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type local:DependencyViewModel}">
+                                <TextBlock Text="{Binding Name}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </StackPanel>
             </ScrollViewer>
         </GroupBox>

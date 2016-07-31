@@ -15,6 +15,8 @@
 
         public string Name { get; }
 
+        public abstract string Version { get; }
+
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

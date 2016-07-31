@@ -19,7 +19,7 @@
         private IReadOnlyList<InstallGroup> groups;
         private IReadOnlyList<PackageViewModel> packages;
         private IReadOnlyList<RemoteFileViewModel> remoteFiles;
-        private IEnumerable<object> allDependencies;
+        private IEnumerable<DependencyViewModel> allDependencies;
         private ReferencesFile referenceFile;
 
         static ProjectViewModel()
@@ -93,7 +93,7 @@
             }
         }
 
-        public IEnumerable<object> AllDependencies
+        public IEnumerable<DependencyViewModel> AllDependencies
         {
             get { return this.allDependencies; }
             private set
@@ -150,7 +150,7 @@
                                    .Select(RemoteFileViewModel.GetOrCreate)
                                    .ToArray();
 
-            this.AllDependencies = this.Packages?.Concat<object>(this.RemoteFiles);
+            this.AllDependencies = this.Packages?.Concat<DependencyViewModel>(this.RemoteFiles);
         }
     }
 }

@@ -36,7 +36,6 @@
                                              ItemsSource="{Binding Packages}"
                                              SelectedItem="{Binding Path=(local:State.SelectedDependency)}" />
                                 </StackPanel>
-
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
