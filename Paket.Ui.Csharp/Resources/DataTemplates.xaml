@@ -9,8 +9,9 @@
             </Grid.ColumnDefinitions>
             <Image Height="24"
                    Margin="2"
-                   Source="{Binding ., Converter={local:DependencyToImageConverter WhenPackage='pack://application:,,,/Paket.Ui.Csharp;component/Images/NuGetIcon.png',
-                                                                                   WhenRemoteFile='pack://application:,,,/Paket.Ui.Csharp;component/Images/OctocatIcon.png'}}" />
+                   Source="{Binding .,
+                                    Converter={local:DependencyToImageConverter WhenPackage='pack://application:,,,/Paket.Ui.Csharp;component/Images/NuGetIcon.png',
+                                                                                WhenRemoteFile='pack://application:,,,/Paket.Ui.Csharp;component/Images/OctocatIcon.png'}}" />
             <Grid Grid.Column="1" VerticalAlignment="Top">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

@@ -24,9 +24,11 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                <TextBox Text="{Binding SearchText}" Width="150"/>
+                <TextBox Width="150" Text="{Binding SearchText}" />
                 <Button Command="{Binding RefreshCommand}" Content="Refresh" />
-                <CheckBox Content="Include prerelease" IsChecked="{Binding IsIncludingPreRelease}" VerticalAlignment="Center"/>
+                <CheckBox VerticalAlignment="Center"
+                          Content="Include prerelease"
+                          IsChecked="{Binding IsIncludingPreRelease}" />
             </StackPanel>
 
             <Grid Grid.Column="1" HorizontalAlignment="Right">
@@ -39,8 +41,10 @@
                 <StackPanel Grid.Row="1"
                             HorizontalAlignment="Left"
                             Orientation="Horizontal">
-                    <TextBlock Text="Package source: " VerticalAlignment="Center"/>
-                    <ComboBox ItemsSource="{Binding PackageSources}" SelectedItem="{Binding SelectedPackageSource}" Width="120"/>
+                    <TextBlock VerticalAlignment="Center" Text="Package source: " />
+                    <ComboBox Width="120"
+                              ItemsSource="{Binding PackageSources}"
+                              SelectedItem="{Binding SelectedPackageSource}" />
                 </StackPanel>
             </Grid>
         </Grid>
