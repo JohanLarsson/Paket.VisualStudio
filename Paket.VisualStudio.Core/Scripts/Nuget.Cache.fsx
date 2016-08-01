@@ -1,5 +1,5 @@
 ﻿#r "System"
-#r "../packages/Paket.Core/lib/net45/Paket.Core.dll"
+#r "../../packages/Paket.Core/lib/net45/Paket.Core.dll"
 open System
 open System.IO
 open System.Text.RegularExpressions

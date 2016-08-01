@@ -45,9 +45,10 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Maps.fs" />
-    <None Include="Nuget.fsx" />
-    <None Include="Nuget.Cache.fsx" />
     <None Include="paket.references" />
+    <None Include="Scripts/Nuget.fsx" />
+    <None Include="Scripts/Nuget.Cache.fsx" />
+    <None Include="Scripts/Jetbrains.Feed.fsx" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
