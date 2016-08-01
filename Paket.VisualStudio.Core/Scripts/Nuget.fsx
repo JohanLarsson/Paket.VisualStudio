@@ -4,10 +4,7 @@
 
 open System
 open Paket
+open Paket.PackageSources
 
-let catalog = Paket.NuGetV3.getCatalog Paket.Constants.DefaultNuGetV3Stream None |> Async.RunSynchronously
-
-//download "http://www.nuget.org/api/v2/Packages"
-//download "http://api.nuget.org/v3/index.json"
-//download "http://api.nuget.org/v3/catalog0/index.json"
-//download "http://api.nuget.org/v3/Json.Net.json"
+let source = PackageSource.NuGetV3Source Constants.DefaultNuGetV3Stream
+let packages = NuGetV3.FindPackages(source.Auth, source.Url, "popular", 100) |> Async.RunSynchronously
