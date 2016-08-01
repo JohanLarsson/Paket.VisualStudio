@@ -9,6 +9,7 @@ open Paket
 open Paket.PackageSources
 open System
 open System.Xml.Linq
+fsi.PrintLength <- 1000
 
 let getAllResharperPackages =
     let getPackageNames (doc : XDocument) =
@@ -38,8 +39,10 @@ let getAllResharperPackages =
     |> Seq.filter(fun x -> not (isNuget x))
     |> Seq.sort
 
-for package in getAllResharperPackages do
-    printfn "%s" package
+let packages = getAllResharperPackages
 
-// System.IO.File.WriteAllLines("C:\Temp\paket.ignore", getAllResharperPackages)
+for package in packages do
+    printfn "\"%s\"" package
+
+System.IO.File.WriteAllLines(@"C:\Temp\paket.ignore", packages)
 
