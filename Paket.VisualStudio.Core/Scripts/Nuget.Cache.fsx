@@ -3,14 +3,8 @@
 open System
 open System.IO
 open System.Text.RegularExpressions
+open Paket
 
-let splitNameAndVersion (fileName : string) = 
-    let m = Regex.Match(fileName, @"(?<name>.+)\.(?<version>\d+(\.\d+){0,3})", RegexOptions.RightToLeft ||| RegexOptions.ExplicitCapture)
-    if m.Success then
-        let name = Paket.Domain.PackageName m.Groups.["name"].Value
-        let version = Paket.SemVer.Parse m.Groups.["version"].Value
-        Some(name, version)
-    else None
 let ignore = Set [|
                 "ActiveMesa.R2P.R10"
                 "ActiveMesa.R2P.R9"
@@ -50,10 +44,18 @@ let ignore = Set [|
                 "campaignmonitor.microservice.templates"
             |]
 
+let splitNameAndVersion (fileName : string) = 
+    let m = Regex.Match(fileName, @"(?<name>.+)\.(?<version>\d+(\.\d+){0,3})", RegexOptions.RightToLeft ||| RegexOptions.ExplicitCapture)
+    if m.Success then
+        let name = Domain.PackageName m.Groups.["name"].Value
+        let version = SemVer.Parse m.Groups.["version"].Value
+        Some(name, version)
+    else None
+
 let files = Directory.EnumerateFiles(Paket.Constants.NuGetCacheFolder, "*.nupkg")
             |> Seq.map Path.GetFileNameWithoutExtension
             |> Seq.choose splitNameAndVersion
-            |> Seq.filter (fun ((name, _), _) -> not (ignore.Contains(name))) 
+            |> Seq.filter (fun (Domain.PackageName(name, _), _) -> not (ignore.Contains(name))) 
             |> Seq.groupBy fst
             |> Seq.map (fun (_, values) -> values |> Seq.maxBy snd )
             |> List.ofSeq
