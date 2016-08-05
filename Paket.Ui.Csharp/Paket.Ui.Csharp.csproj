@@ -51,20 +51,38 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Converters\DependencyToImageConverter.cs" />
+    <Compile Include="Converters\DependencyInfoToImageConverter.cs" />
+    <Compile Include="Converters\GetTypeConverter.cs" />
+    <Compile Include="Converters\IllegalIconToDefaultConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
+    <Compile Include="Dtos\AutoCompleteResponse.cs" />
+    <Compile Include="Dtos\JsonConverters.cs" />
+    <Compile Include="Dtos\PackageInfo.cs" />
+    <Compile Include="Dtos\PackageInfoConverter.cs" />
+    <Compile Include="Dtos\QueryResponse.cs" />
+    <Compile Include="Dtos\RemoteFileInfo.cs" />
+    <Compile Include="Dtos\VersionInfo.cs" />
+    <Compile Include="Extensions\ConcurrentDictionaryExt.cs" />
     <Compile Include="Extensions\OptionExt.cs" />
+    <Compile Include="State\Favorites.cs" />
+    <Compile Include="State\File.cs" />
+    <Compile Include="State\Nuget.cs" />
+    <Compile Include="State\NugetCache.cs" />
+    <Compile Include="State\ReceivedResposeEventArgs.cs" />
     <Compile Include="ViewModels\DependencyViewModel.cs" />
     <Compile Include="ViewModels\PackageViewModel.cs" />
     <Compile Include="ViewModels\ProjectViewModel.cs" />
     <Compile Include="State\InstalledDependencies.cs" />
+    <Compile Include="ViewModels\RefreshingCollection.cs" />
     <Compile Include="ViewModels\RemoteFileViewModel.cs" />
+    <Compile Include="ViewModels\BrowseViewModel.cs" />
     <Compile Include="Views\ProjectListAndInfoView.xaml.cs">
       <DependentUpon>ProjectListAndInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UpdateView.xaml.cs">
       <DependentUpon>UpdateView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Wpf\ScrollViewer.cs" />
     <Page Include="Resources\DataTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -102,16 +120,10 @@
     <Compile Include="Views\BrowseView.xaml.cs">
       <DependentUpon>BrowseView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\BrowseViewModel.cs">
-      <DependentUpon>BrowseView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\InstalledView.xaml.cs">
       <DependentUpon>InstalledView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainView.xaml.cs">
-      <DependentUpon>MainView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MainViewModel.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
@@ -152,8 +164,15 @@
   <ItemGroup>
     <Resource Include="Images\OctocatIcon.png" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Maps\" />
+    <Resource Include="Images\NuGetIcon_24x24.png" />
+    <Resource Include="Images\NuGetIcon_36x36.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OctocatIcon_128x128.png" />
+    <Resource Include="Images\OctocatIcon_24x24.png" />
+    <Resource Include="Images\OctocatIcon_36x36.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

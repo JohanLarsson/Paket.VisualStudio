@@ -5,12 +5,13 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
 using System.Collections.Generic;
 using System.IO;
-using MadsKristensen.EditorExtensions;
 using EnvDTE;
 using EnvDTE80;
 
 namespace Paket.VisualStudio.SolutionExplorer
 {
+    using Paket.VisualStudio.EditorExtensions;
+
     internal class SolutionExplorerExtensions
     {
         private static IServiceProvider _serviceProvider;

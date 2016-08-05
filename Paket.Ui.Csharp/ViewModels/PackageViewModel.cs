@@ -2,7 +2,6 @@ namespace Paket.Ui.Csharp
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     public class PackageViewModel : DependencyViewModel
     {
@@ -14,6 +13,25 @@ namespace Paket.Ui.Csharp
         }
 
         public override string Version => this.GetLockFileVersion();
+
+        public PackageInfo Info
+        {
+            get
+            {
+                NugetCache.JsonAndPackageInfo result;
+                return NugetCache.TryGet(this.Name, out result) ? result.Package : null;
+            }
+        }
+
+        public override bool IsFavorite
+        {
+            get { return Favorites.IsFavorite(Info); }
+            set
+            {
+                Favorites.SetIsFavoriteAsync(this.Info, value);
+                this.OnPropertyChanged();
+            }
+        }
 
         private string GetLockFileVersion()
         {
@@ -45,6 +63,11 @@ namespace Paket.Ui.Csharp
         internal static PackageViewModel GetOrCreate(Requirements.PackageRequirement packageRequirement)
         {
             return GetOrCreate(packageRequirement?.Name.ToString());
+        }
+
+        internal static PackageViewModel GetOrCreate(PackageInfo packageInfo)
+        {
+            return GetOrCreate(packageInfo.Id);
         }
 
         private static PackageViewModel GetOrCreate(string name)

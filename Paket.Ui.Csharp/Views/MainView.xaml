@@ -2,9 +2,6 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Paket.Ui.Csharp">
-    <UserControl.DataContext>
-        <local:MainViewModel />
-    </UserControl.DataContext>
     <TabControl SelectedIndex="1">
         <TabItem Header="Browse">
             <local:BrowseView />

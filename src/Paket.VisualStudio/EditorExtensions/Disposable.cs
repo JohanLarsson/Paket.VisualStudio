@@ -1,8 +1,8 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-
-namespace MadsKristensen.EditorExtensions
+﻿namespace Paket.VisualStudio.EditorExtensions
 {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+
     ///<summary>An IDisposable implementation that calls a delegate when disposed.</summary>
     public sealed class Disposable : IDisposable
     {
@@ -18,8 +18,8 @@ namespace MadsKristensen.EditorExtensions
         {
             if (disposer == null) throw new ArgumentNullException("disposer");
 
-            onDispose = disposer;
-            Repeatable = repeatable;
+            this.onDispose = disposer;
+            this.Repeatable = repeatable;
         }
 
         ///<summary>Gets whether the underlying delegate will be called multiple times if this instance is disposed multiple times.</summary>
@@ -31,10 +31,10 @@ namespace MadsKristensen.EditorExtensions
         [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly"), SuppressMessage("Microsoft.Usage", "CA1816:CallGCSuppressFinalizeCorrectly")]
         public void Dispose()
         {
-            if (Disposed && !Repeatable) return;
-            Disposed = true;
-            onDispose();
-            if (!Repeatable) onDispose = null;  //Free the reference to allow the delegate & its Target to be GC'd.
+            if (this.Disposed && !this.Repeatable) return;
+            this.Disposed = true;
+            this.onDispose();
+            if (!this.Repeatable) this.onDispose = null;  //Free the reference to allow the delegate & its Target to be GC'd.
         }
     }
 }

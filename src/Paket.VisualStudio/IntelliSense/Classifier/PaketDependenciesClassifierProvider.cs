@@ -1,6 +1,4 @@
 using System.ComponentModel.Composition;
-
-using MadsKristensen.EditorExtensions;
 using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
@@ -10,6 +8,8 @@ using Microsoft.VisualStudio.Utilities;
 
 namespace Paket.VisualStudio.IntelliSense.Classifier
 {
+    using Paket.VisualStudio.EditorExtensions;
+
     [Export(typeof(IVsTextViewCreationListener))]
     [Export(typeof(IClassifierProvider))]
     [ContentType(PaketDependenciesFileContentType.ContentType)]

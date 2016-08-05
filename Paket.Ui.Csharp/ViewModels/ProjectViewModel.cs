@@ -129,7 +129,7 @@
 
         private void Refresh()
         {
-            if (!File.Exists(this.projectFileName))
+            if (!System.IO.File.Exists(this.projectFileName))
             {
                 Cache.Remove(this);
                 return;

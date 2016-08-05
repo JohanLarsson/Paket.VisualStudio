@@ -6,7 +6,7 @@
     using System.Windows.Markup;
 
     [MarkupExtensionReturnType(typeof(IValueConverter))]
-    public class DependencyToImageConverter : MarkupExtension, IValueConverter
+    public class DependencyInfoToImageConverter : MarkupExtension, IValueConverter
     {
         public Uri WhenPackage { get; set; }
 
@@ -29,11 +29,24 @@
                 return null;
             }
 
-            if (value is PackageViewModel)
+            var packageInfo = value as PackageInfo;
+            if (packageInfo != null)
             {
-                return this.WhenPackage;
+                var url = packageInfo.IconUrl;
+                if (string.IsNullOrWhiteSpace(url))
+                {
+                    return this.WhenPackage;
+                }
+
+                var extension = System.IO.Path.GetExtension(url);
+                if (extension == ".svg")
+                {
+                    return this.WhenPackage;
+                }
+
+                return url;
             }
-            if (value is RemoteFileViewModel)
+            if (value is RemoteFileInfo)
             {
                 return this.WhenRemoteFile;
             }

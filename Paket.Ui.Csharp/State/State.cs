@@ -97,7 +97,7 @@ namespace Paket.Ui.Csharp
             {
                 // Hacking it quick and dirty for now.
                 var sln = @"C:\Git\Third Party\Paket.VisualStudio\Paket.VisualStudio.sln";
-                if (File.Exists(sln))
+                if (System.IO.File.Exists(sln))
                 {
                     var slnFile = new FileInfo(sln);
                     projectFiles = ProjectFile.FindAllProjects(slnFile.DirectoryName);

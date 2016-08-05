@@ -1,10 +1,10 @@
-﻿using System;
-using EnvDTE;
-using EnvDTE80;
-using Microsoft.VisualStudio.Shell;
-
-namespace MadsKristensen.EditorExtensions
+﻿namespace Paket.VisualStudio.EditorExtensions
 {
+    using System;
+    using EnvDTE;
+    using EnvDTE80;
+    using Microsoft.VisualStudio.Shell;
+
     public class DteUtils
     {
         private static DTE2 _dte;

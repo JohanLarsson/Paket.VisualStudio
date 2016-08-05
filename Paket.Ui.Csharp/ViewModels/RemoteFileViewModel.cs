@@ -14,6 +14,8 @@ namespace Paket.Ui.Csharp
 
         public override string Version { get; } = "Not implemented";
 
+        public override bool IsFavorite { get; set; }
+
         internal static RemoteFileViewModel GetOrCreate(RemoteFileReference remoteFileReference)
         {
             return GetOrCreate(remoteFileReference?.Name);

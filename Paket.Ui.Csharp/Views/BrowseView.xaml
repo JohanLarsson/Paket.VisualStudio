@@ -8,9 +8,87 @@
              d:DesignHeight="600"
              d:DesignWidth="600"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type local:PackageViewModel}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <ToggleButton Grid.Column="0" IsChecked="{Binding IsFavorite}">
+                    <ToggleButton.Template>
+                        <ControlTemplate TargetType="{x:Type ToggleButton}">
+                            <Border Background="Transparent">
+                                <Grid Margin="2,2,6,6">
+                                    <Image x:Name="Icon"
+                                           Width="36"
+                                           Height="36"
+                                           Source="{Binding Info.IconUrl,
+                                                            Mode=OneWay,
+                                                            Converter={StaticResource IllegalIconToDefaultConverter},
+                                                            TargetNullValue={StaticResource DefaultNugetIcon36X36},
+                                                            FallbackValue={StaticResource DefaultNugetIcon36X36},
+                                                            IsAsync=True}" />
+
+                                    <Path x:Name="StarPath"
+                                          Height="12"
+                                          HorizontalAlignment="Right"
+                                          VerticalAlignment="Top"
+                                          Data="M90,100 L75,62 108,38 67,38 54,0 40,38 0,38 35,62 23,100 54,79 z"
+                                          Fill="DarkGray"
+                                          Stretch="Uniform" />
+                                </Grid>
+                            </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="StarPath" Property="Fill" Value="Gold" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </ToggleButton.Template>
+                </ToggleButton>
+
+                <Grid Grid.Column="1" VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="Title"
+                                       FontWeight="Bold"
+                                       Text="{Binding Info.Title,
+                                                      Mode=OneTime}" />
+                            <ItemsControl Margin="2,0,0,0" ItemsSource="{Binding Info.Authors, Mode=OneTime}" />
+                        </StackPanel>
+
+                        <TextBlock x:Name="VersionBlock"
+                                   Grid.Column="1"
+                                   Text="{Binding Info.Version,
+                                                  Mode=OneTime,
+                                                  StringFormat='v{0}'}" />
+                    </Grid>
+
+                    <TextBlock x:Name="Description"
+                               Grid.Row="1"
+                               MaxHeight="{Binding ActualHeight,
+                                                   ElementName=VersionBlock}"
+                               Text="{Binding Info.Description}"
+                               TextWrapping="WrapWithOverflow" />
+                </Grid>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
     <UserControl.DataContext>
         <local:BrowseViewModel />
     </UserControl.DataContext>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -24,7 +102,14 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                <TextBox Width="150" Text="{Binding SearchText}" />
+                <ComboBox Width="200"
+                          HorizontalAlignment="Left"
+                          IsEditable="True"
+                          IsTextSearchEnabled="False"
+                          ItemsSource="{Binding AutoCompletes}"
+                          StaysOpenOnEdit="True"
+                          Text="{Binding SearchText,
+                                         UpdateSourceTrigger=PropertyChanged}" />
                 <Button Command="{Binding RefreshCommand}" Content="Refresh" />
                 <CheckBox VerticalAlignment="Center"
                           Content="Include prerelease"
@@ -42,9 +127,8 @@
                             HorizontalAlignment="Left"
                             Orientation="Horizontal">
                     <TextBlock VerticalAlignment="Center" Text="Package source: " />
-                    <ComboBox Width="120"
-                              ItemsSource="{Binding PackageSources}"
-                              SelectedItem="{Binding SelectedPackageSource}" />
+                    <ComboBox Width="120" />
+                    <Button Content="Settings" />
                 </StackPanel>
             </Grid>
         </Grid>
@@ -62,8 +146,10 @@
                     <RowDefinition Height="{StaticResource GridSplitterGridLength}" />
                     <RowDefinition Height="150" />
                 </Grid.RowDefinitions>
-                <ListBox ItemTemplate="{StaticResource DependencyRowTemplate}"
+                <ListBox HorizontalContentAlignment="Stretch"
+                         local:ScrollViewer.LastPage="OnCloseToBottom"
                          ItemsSource="{Binding Packages}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                          SelectedItem="{Binding Path=(local:State.SelectedDependency)}" />
 
                 <GridSplitter Grid.Row="1" />

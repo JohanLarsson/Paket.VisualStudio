@@ -17,6 +17,8 @@
 
         public abstract string Version { get; }
 
+        public abstract bool IsFavorite { get; set; }
+
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

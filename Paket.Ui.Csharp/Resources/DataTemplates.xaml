@@ -1,17 +1,51 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Paket.Ui.Csharp">
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:local="clr-namespace:Paket.Ui.Csharp"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:system="clr-namespace:System;assembly=System"
+                    mc:Ignorable="d">
+    <system:Uri x:Key="DefaultNugetIcon36X36">
+        pack://application:,,,/Paket.Ui.Csharp;component/Images/NuGetIcon_36x36.png
+    </system:Uri>
+
+    <local:IllegalIconToDefaultConverter x:Key="IllegalIconToDefaultConverter" DefaultIcon="{StaticResource DefaultNugetIcon36X36}" />
+
     <DataTemplate x:Key="DependencyRowTemplate" DataType="{x:Type local:DependencyViewModel}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Image Height="24"
-                   Margin="2"
-                   Source="{Binding .,
-                                    Converter={local:DependencyToImageConverter WhenPackage='pack://application:,,,/Paket.Ui.Csharp;component/Images/NuGetIcon.png',
-                                                                                WhenRemoteFile='pack://application:,,,/Paket.Ui.Csharp;component/Images/OctocatIcon.png'}}" />
+
+            <ToggleButton Grid.Column="0" IsChecked="{Binding IsFavorite}">
+                <ToggleButton.Template>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border Background="Transparent">
+                            <Grid Margin="2,2,6,6">
+                                <Image x:Name="Icon"
+                                       Width="36"
+                                       Height="36" />
+
+                                <Path x:Name="StarPath"
+                                      Height="12"
+                                      HorizontalAlignment="Right"
+                                      VerticalAlignment="Top"
+                                      Data="M90,100 L75,62 108,38 67,38 54,0 40,38 0,38 35,62 23,100 54,79 z"
+                                      Fill="DarkGray"
+                                      Stretch="Uniform" />
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="StarPath" Property="Fill" Value="Gold" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </ToggleButton.Template>
+            </ToggleButton>
+
             <Grid Grid.Column="1" VerticalAlignment="Top">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -23,15 +57,40 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock FontWeight="Bold" Text="{Binding Name}" />
-                        <TextBlock Margin="2,0,0,0" Text="by CREATOR_PLACEHOLDER" />
+                        <TextBox x:Name="Title"
+                                 Margin="-2,0"
+                                 BorderBrush="{x:Null}"
+                                 BorderThickness="0"
+                                 IsReadOnly="True" />
+
+                        <TextBlock x:Name="Authors" Margin="2,0,0,0" />
                     </StackPanel>
 
-                    <TextBlock Grid.Column="1" Text="{Binding Version}" />
+                    <TextBlock x:Name="VersionBlock"
+                               Grid.Column="1"
+                               Text="{Binding Version,
+                                              Mode=OneTime,
+                                              StringFormat='v{0}'}" />
                 </Grid>
 
-                <TextBlock Grid.Row="1" Text="PACKAGE_INFO_PLACEHOLDER" />
+                <TextBlock x:Name="Description"
+                           Grid.Row="1"
+                           MaxHeight="{Binding ActualHeight,
+                                               ElementName=VersionBlock}"
+                           TextWrapping="WrapWithOverflow" />
             </Grid>
         </Grid>
+        
+        <DataTemplate.Triggers>
+            <!--This is not very elegant but the alternative is duplicated xaml--> 
+            <DataTrigger Binding="{Binding ., Converter={x:Static local:GetTypeConverter.Default}, Mode=OneTime}" Value="{x:Type local:PackageViewModel}">
+                <!--
+                <Setter TargetName="Icon" Property="Source" Value="{Binding Info.IconUrl, Converter={StaticResource IllegalIconToDefaultConverter}, TargetNullValue={StaticResource DefaultNugetIcon}, FallbackValue={StaticResource DefaultNugetIcon}, IsAsync=True}" />
+                -->
+                <Setter TargetName="Title" Property="Text" Value="{Binding Info.Title, Mode=OneTime}" />
+                <Setter TargetName="Authors" Property="Text" Value="{Binding Info.Authors, Mode=OneTime}" />
+                <Setter TargetName="Description" Property="Text" Value="{Binding Info.Description, Mode=OneTime}" />
+            </DataTrigger>
+        </DataTemplate.Triggers>
     </DataTemplate>
 </ResourceDictionary>

@@ -1,17 +1,16 @@
 ﻿// taken from WebEssentials2015 by Mads Kristensen https://github.com/madskristensen/WebEssentials2015
 // todo make this a proper attribution
 
-using System;
-using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Windows.Threading;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.OLE.Interop;
-using Microsoft.VisualStudio.Text.Editor;
-using Microsoft.VisualStudio.TextManager.Interop;
-
-namespace MadsKristensen.EditorExtensions
+namespace Paket.VisualStudio.EditorExtensions
 {
+    using System;
+    using System.Collections.ObjectModel;
+    using System.Globalization;
+    using System.Windows.Threading;
+    using Microsoft.VisualStudio;
+    using Microsoft.VisualStudio.OLE.Interop;
+    using Microsoft.VisualStudio.Text.Editor;
+    using Microsoft.VisualStudio.TextManager.Interop;
 
     internal abstract class CommandTargetBase<TCommandEnum> : IOleCommandTarget where TCommandEnum : struct, IComparable
     {
@@ -26,14 +25,14 @@ namespace MadsKristensen.EditorExtensions
         { }
         public CommandTargetBase(IVsTextView adapter, IWpfTextView textView, Guid commandGroup, params uint[] commandIds)
         {
-            CommandGroup = commandGroup;
-            CommandIds = new ReadOnlyCollection<uint>(commandIds);
-            TextView = textView;
+            this.CommandGroup = commandGroup;
+            this.CommandIds = new ReadOnlyCollection<uint>(commandIds);
+            this.TextView = textView;
 
             Dispatcher.CurrentDispatcher.InvokeAsync(() =>
             {
                 // Add the target later to make sure it makes it in before other command handlers
-                ErrorHandler.ThrowOnFailure(adapter.AddCommandFilter(this, out _nextCommandTarget));
+                ErrorHandler.ThrowOnFailure(adapter.AddCommandFilter(this, out this._nextCommandTarget));
             }, DispatcherPriority.ApplicationIdle);
         }
 
@@ -42,9 +41,9 @@ namespace MadsKristensen.EditorExtensions
 
         public int Exec(ref Guid pguidCmdGroup, uint nCmdID, uint nCmdexecopt, IntPtr pvaIn, IntPtr pvaOut)
         {
-            if (pguidCmdGroup == CommandGroup && CommandIds.Contains(nCmdID))
+            if (pguidCmdGroup == this.CommandGroup && this.CommandIds.Contains(nCmdID))
             {
-                bool result = Execute((TCommandEnum)(object)(int)nCmdID, nCmdexecopt, pvaIn, pvaOut);
+                bool result = this.Execute((TCommandEnum)(object)(int)nCmdID, nCmdexecopt, pvaIn, pvaOut);
 
                 if (result)
                 {
@@ -52,19 +51,19 @@ namespace MadsKristensen.EditorExtensions
                 }
             }
 
-            return _nextCommandTarget.Exec(ref pguidCmdGroup, nCmdID, nCmdexecopt, pvaIn, pvaOut);
+            return this._nextCommandTarget.Exec(ref pguidCmdGroup, nCmdID, nCmdexecopt, pvaIn, pvaOut);
         }
 
         public int QueryStatus(ref Guid pguidCmdGroup, uint cCmds, OLECMD[] prgCmds, IntPtr pCmdText)
         {
-            if (pguidCmdGroup != CommandGroup)
-                return _nextCommandTarget.QueryStatus(ref pguidCmdGroup, cCmds, prgCmds, pCmdText);
+            if (pguidCmdGroup != this.CommandGroup)
+                return this._nextCommandTarget.QueryStatus(ref pguidCmdGroup, cCmds, prgCmds, pCmdText);
 
             for (int i = 0; i < cCmds; i++)
             {
-                if (CommandIds.Contains(prgCmds[i].cmdID))
+                if (this.CommandIds.Contains(prgCmds[i].cmdID))
                 {
-                    if (IsEnabled())
+                    if (this.IsEnabled())
                     {
                         prgCmds[i].cmdf = (uint)(OLECMDF.OLECMDF_ENABLED | OLECMDF.OLECMDF_SUPPORTED);
                         return VSConstants.S_OK;
@@ -74,7 +73,7 @@ namespace MadsKristensen.EditorExtensions
                 }
             }
 
-            return _nextCommandTarget.QueryStatus(ref pguidCmdGroup, cCmds, prgCmds, pCmdText);
+            return this._nextCommandTarget.QueryStatus(ref pguidCmdGroup, cCmds, prgCmds, pCmdText);
         }
     }
 }
