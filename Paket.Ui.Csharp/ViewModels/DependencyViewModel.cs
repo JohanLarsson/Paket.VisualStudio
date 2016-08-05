@@ -17,6 +17,8 @@
 
         public abstract string Version { get; }
 
+        public abstract DependencyInfo Info { get; }
+
         public abstract bool IsFavorite { get; set; }
 
         [NotifyPropertyChangedInvocator]

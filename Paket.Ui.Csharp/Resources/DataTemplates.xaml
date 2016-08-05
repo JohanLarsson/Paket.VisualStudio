@@ -25,7 +25,12 @@
                             <Grid Margin="2,2,6,6">
                                 <Image x:Name="Icon"
                                        Width="36"
-                                       Height="36" />
+                                       Height="36"
+                                       Source="{Binding Info.IconUrl,
+                                                        Converter={StaticResource IllegalIconToDefaultConverter},
+                                                        TargetNullValue={StaticResource DefaultNugetIcon36X36},
+                                                        FallbackValue={StaticResource DefaultNugetIcon36X36},
+                                                        IsAsync=True}" />
 
                                 <Path x:Name="StarPath"
                                       Height="12"
@@ -57,19 +62,15 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal">
-                        <TextBox x:Name="Title"
-                                 Margin="-2,0"
-                                 BorderBrush="{x:Null}"
-                                 BorderThickness="0"
-                                 IsReadOnly="True" />
-
-                        <TextBlock x:Name="Authors" Margin="2,0,0,0" />
+                        <TextBlock x:Name="Title"
+                                   FontWeight="Bold"
+                                   Text="{Binding Info.Title}" />
+                        <ItemsControl Margin="2,0,0,0" ItemsSource="{Binding Info.Authors}" />
                     </StackPanel>
 
                     <TextBlock x:Name="VersionBlock"
                                Grid.Column="1"
-                               Text="{Binding Version,
-                                              Mode=OneTime,
+                               Text="{Binding Info.Version,
                                               StringFormat='v{0}'}" />
                 </Grid>
 
@@ -77,20 +78,9 @@
                            Grid.Row="1"
                            MaxHeight="{Binding ActualHeight,
                                                ElementName=VersionBlock}"
+                           Text="{Binding Info.Description}"
                            TextWrapping="WrapWithOverflow" />
             </Grid>
         </Grid>
-        
-        <DataTemplate.Triggers>
-            <!--This is not very elegant but the alternative is duplicated xaml--> 
-            <DataTrigger Binding="{Binding ., Converter={x:Static local:GetTypeConverter.Default}, Mode=OneTime}" Value="{x:Type local:PackageViewModel}">
-                <!--
-                <Setter TargetName="Icon" Property="Source" Value="{Binding Info.IconUrl, Converter={StaticResource IllegalIconToDefaultConverter}, TargetNullValue={StaticResource DefaultNugetIcon}, FallbackValue={StaticResource DefaultNugetIcon}, IsAsync=True}" />
-                -->
-                <Setter TargetName="Title" Property="Text" Value="{Binding Info.Title, Mode=OneTime}" />
-                <Setter TargetName="Authors" Property="Text" Value="{Binding Info.Authors, Mode=OneTime}" />
-                <Setter TargetName="Description" Property="Text" Value="{Binding Info.Description, Mode=OneTime}" />
-            </DataTrigger>
-        </DataTemplate.Triggers>
     </DataTemplate>
 </ResourceDictionary>

@@ -4,36 +4,30 @@
     using System.Diagnostics;
 
     [DebuggerDisplay("{Id}")]
-    public class PackageInfo
+    public class PackageInfo : DependencyInfo
     {
         public PackageInfo(
             string type,
-            string registration, 
-            string id, 
+            string registration,
+            string id,
             string version,
-            string description, 
+            string description,
             string summary,
-            string title, 
+            string title,
             string iconUrl,
             string licenseUrl,
             string projectUrl,
-            string[] tags, 
-            string[] authors, 
+            string[] tags,
+            string[] authors,
             int totalDownloads,
             VersionInfo[] versions)
+            : base(id, authors, version, description, summary, title, iconUrl)
         {
             this.Type = type;
             this.Registration = registration;
-            this.Id = id;
-            this.Version = version;
-            this.Description = description;
-            this.Summary = summary;
-            this.Title = title;
-            this.IconUrl = iconUrl;
             this.LicenseUrl = licenseUrl;
             this.ProjectUrl = projectUrl;
             this.Tags = tags;
-            this.Authors = authors;
             this.TotalDownloads = totalDownloads;
             this.Versions = versions;
         }
@@ -42,25 +36,11 @@
 
         public string Registration { get; }
 
-        public string Id { get; }
-
-        public string Version { get; }
-
-        public string Description { get; }
-
-        public string Summary { get; }
-
-        public string Title { get; }
-
-        public string IconUrl { get; }
-
         public string LicenseUrl { get; }
 
         public string ProjectUrl { get; }
 
         public IReadOnlyList<string> Tags { get; }
-
-        public IReadOnlyList<string> Authors { get; }
 
         public int TotalDownloads { get; }
 
@@ -86,14 +66,14 @@
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return this.Equals((PackageInfo) obj);
+            return this.Equals((PackageInfo)obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return (this.Id.GetHashCode()*397) ^ this.Version.GetHashCode();
+                return (this.Id.GetHashCode() * 397) ^ this.Version.GetHashCode();
             }
         }
     }

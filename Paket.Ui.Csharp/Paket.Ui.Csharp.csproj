@@ -56,6 +56,7 @@
     <Compile Include="Converters\IllegalIconToDefaultConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Dtos\AutoCompleteResponse.cs" />
+    <Compile Include="Dtos\DependencyInfo.cs" />
     <Compile Include="Dtos\JsonConverters.cs" />
     <Compile Include="Dtos\PackageInfo.cs" />
     <Compile Include="Dtos\PackageInfoConverter.cs" />

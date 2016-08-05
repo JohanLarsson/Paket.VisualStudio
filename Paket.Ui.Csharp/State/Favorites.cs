@@ -48,7 +48,7 @@
             return System.IO.Path.Combine(Folder.FullName, $"{package.Id}.favorite");
         }
 
-        public static async Task SetIsFavoriteAsync(PackageInfo package, bool isFavorite)
+        public static void SetIsFavorite(PackageInfo package, bool isFavorite)
         {
             if (package == null)
             {
@@ -60,7 +60,7 @@
                 NugetCache.JsonAndPackageInfo result;
                 if (NugetCache.TryGet(package.Id, out result))
                 {
-                    await File.WriteAllTextAsync(GetFileName(package), result.Json).ConfigureAwait(false);
+                    System.IO.File.WriteAllText(GetFileName(package), result.Json);
                 }
             }
             else

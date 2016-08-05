@@ -2,10 +2,24 @@ namespace Paket.Ui.Csharp
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class PackageViewModel : DependencyViewModel
     {
         private static readonly List<PackageViewModel> Cache = new List<PackageViewModel>();
+
+        static PackageViewModel()
+        {
+            NugetCache.PackageUpdated += (_, info) =>
+            {
+                var vm = Cache.SingleOrDefault(x => x.Name == info.Id);
+                if (vm != null)
+                {
+                    vm.OnPropertyChanged(nameof(Info));
+                    vm.OnPropertyChanged(nameof(IsFavorite));
+                }
+            };
+        }
 
         private PackageViewModel(string name)
             : base(name)
@@ -14,7 +28,7 @@ namespace Paket.Ui.Csharp
 
         public override string Version => this.GetLockFileVersion();
 
-        public PackageInfo Info
+        public override DependencyInfo Info
         {
             get
             {
@@ -25,10 +39,10 @@ namespace Paket.Ui.Csharp
 
         public override bool IsFavorite
         {
-            get { return Favorites.IsFavorite(Info); }
+            get { return Favorites.IsFavorite((PackageInfo)this.Info); }
             set
             {
-                Favorites.SetIsFavoriteAsync(this.Info, value);
+                Favorites.SetIsFavorite((PackageInfo)this.Info, value);
                 this.OnPropertyChanged();
             }
         }
@@ -45,7 +59,7 @@ namespace Paket.Ui.Csharp
             {
                 foreach (var resolvedPackage in fileGroup.Value.Resolution)
                 {
-                    if (string.Equals(resolvedPackage.Value.Name.Item1,this.Name, StringComparison.OrdinalIgnoreCase))
+                    if (string.Equals(resolvedPackage.Value.Name.Item1, this.Name, StringComparison.OrdinalIgnoreCase))
                     {
                         return resolvedPackage.Value.Version.AsString;
                     }

@@ -1,10 +1,13 @@
 namespace Paket.Ui.Csharp
 {
+    using System;
     using System.Collections.Concurrent;
 
     public static class NugetCache
     {
         private static readonly ConcurrentDictionary<string, JsonAndPackageInfo> PackageCache = new ConcurrentDictionary<string, JsonAndPackageInfo>();
+
+        internal static event EventHandler<PackageInfo> PackageUpdated; 
 
         internal static bool TryGet(string id, out JsonAndPackageInfo result)
         {
@@ -14,6 +17,7 @@ namespace Paket.Ui.Csharp
         internal static void UpdatePackageCache(string id, JsonAndPackageInfo jsonAndPackageInfo)
         {
             PackageCache.AddOrUpdate(id, jsonAndPackageInfo, (_, __) => jsonAndPackageInfo);
+            PackageUpdated?.Invoke(null, jsonAndPackageInfo.Package);
         }
 
         internal class JsonAndPackageInfo
