@@ -3,20 +3,39 @@ namespace Paket.Ui.Csharp
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Windows.Media.Imaging;
 
     public class PackageViewModel : DependencyViewModel
     {
         private static readonly List<PackageViewModel> Cache = new List<PackageViewModel>();
+        private static readonly object Gate = new object();
 
         static PackageViewModel()
         {
             NugetCache.PackageUpdated += (_, info) =>
             {
-                var vm = Cache.SingleOrDefault(x => x.Name == info.Id);
-                if (vm != null)
+                lock (Gate)
                 {
-                    vm.OnPropertyChanged(nameof(Info));
-                    vm.OnPropertyChanged(nameof(IsFavorite));
+                    var vm = Cache.SingleOrDefault(x => x.Name == info.Id);
+                    if (vm != null)
+                    {
+                        vm.OnPropertyChanged(nameof(Info));
+                        vm.OnPropertyChanged(nameof(IsFavorite));
+                    }
+                }
+            };
+
+            Icons.IconUpdated += (_, url) =>
+            {
+                lock (Gate)
+                {
+                    foreach (var viewModel in Cache)
+                    {
+                        if (viewModel?.Info?.IconUrl == url)
+                        {
+                            viewModel.OnPropertyChanged(nameof(Icon));
+                        }
+                    }
                 }
             };
         }
@@ -27,6 +46,8 @@ namespace Paket.Ui.Csharp
         }
 
         public override string Version => this.GetLockFileVersion();
+
+        public override BitmapSource Icon => Icons.GetIcon(this.Info?.IconUrl) ?? Icons.DefaultPackageIcon;
 
         public override DependencyInfo Info
         {
@@ -91,14 +112,17 @@ namespace Paket.Ui.Csharp
                 return null;
             }
 
-            var match = Cache.Find(x => string.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase));
-            if (match == null)
+            lock (Gate)
             {
-                match = new PackageViewModel(name);
-                Cache.Add(match);
-            }
+                var match = Cache.Find(x => string.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase));
+                if (match == null)
+                {
+                    match = new PackageViewModel(name);
+                    Cache.Add(match);
+                }
 
-            return match;
+                return match;
+            }
         }
     }
 }

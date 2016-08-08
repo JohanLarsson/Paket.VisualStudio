@@ -2,6 +2,7 @@ namespace Paket.Ui.Csharp
 {
     using System;
     using System.Collections.Generic;
+    using System.Windows.Media.Imaging;
 
     public class RemoteFileViewModel : DependencyViewModel
     {
@@ -15,6 +16,8 @@ namespace Paket.Ui.Csharp
         public override string Version { get; } = "Not implemented";
 
         public override DependencyInfo Info => null;
+
+        public override BitmapSource Icon => Icons.OctocatIcon; 
 
         public override bool IsFavorite { get; set; }
 

@@ -24,13 +24,9 @@
                         <Border Background="Transparent">
                             <Grid Margin="2,2,6,6">
                                 <Image x:Name="Icon"
-                                       Width="36"
-                                       Height="36"
-                                       Source="{Binding Info.IconUrl,
-                                                        Converter={StaticResource IllegalIconToDefaultConverter},
-                                                        TargetNullValue={StaticResource DefaultNugetIcon36X36},
-                                                        FallbackValue={StaticResource DefaultNugetIcon36X36},
-                                                        IsAsync=True}" />
+                                       MaxWidth="32"
+                                       MaxHeight="32"
+                                       Source="{Binding Icon}" />
 
                                 <Path x:Name="StarPath"
                                       Height="12"

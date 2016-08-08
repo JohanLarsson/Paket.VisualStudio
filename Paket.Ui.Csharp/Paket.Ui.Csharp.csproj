@@ -38,6 +38,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -67,6 +68,7 @@
     <Compile Include="Extensions\OptionExt.cs" />
     <Compile Include="State\Favorites.cs" />
     <Compile Include="State\File.cs" />
+    <Compile Include="State\Icons.cs" />
     <Compile Include="State\Nuget.cs" />
     <Compile Include="State\NugetCache.cs" />
     <Compile Include="State\ReceivedResposeEventArgs.cs" />
@@ -165,7 +167,10 @@
   <ItemGroup>
     <Resource Include="Images\OctocatIcon.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\NuGetIcon_32x32.png" />
+    <Resource Include="Images\OctocatIcon_32x32.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\NuGetIcon_24x24.png" />
     <Resource Include="Images\NuGetIcon_36x36.png" />

@@ -2,6 +2,7 @@
 {
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
+    using System.Windows.Media.Imaging;
     using JetBrains.Annotations;
 
     public abstract class DependencyViewModel : INotifyPropertyChanged
@@ -18,6 +19,8 @@
         public abstract string Version { get; }
 
         public abstract DependencyInfo Info { get; }
+
+        public abstract BitmapSource Icon { get; }
 
         public abstract bool IsFavorite { get; set; }
 
